@@ -1,0 +1,5837 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "0.0.1",
+      "title": "YAG 1.1 Microservice",
+      "contact": {
+        "email": "info@agatsa.com"
+      },
+      "license": {
+        "name": "Copyright Agatsa 2019. All rights reserved."
+      }
+    },
+    "host": "localhost:80",
+    "basePath": "/yag",
+    "schemes": [
+      "http",
+      "https"
+    ],
+    "securityDefinitions": {
+      "basicAuth": {
+        "type": "basic"
+      }
+    },
+    "consumes": [
+      "application/json"
+    ],
+    "produces": [
+      "application/json"
+    ],
+    "tags": [
+      {
+        "name": "YAG 1.1",
+        "description": "This particular yag module will authenticate/authorize the user and POST/ returns the health data of user"
+      }
+    ],
+    "paths": {
+      "/accounts": {
+        "x-swagger-router-controller": "yagAccount",
+        "get": {
+          "tags": [
+            "YAG 1.1"
+          ],
+          "security": [
+            "basicAuth": []
+          ],
+          "description": "Returns user's Account Data by interacting with Account microservice",
+          "operationId": "getAllAccount",
+          "parameters": [
+            {
+              "name": "Authori",
+              "in": "header",
+              "description": "Authorization token",
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/accountsDocument"
+              }
+            },
+            "404": {
+              "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": [
+            "YAG 1.1 : Accounts"
+          ],
+          "description": "save the user's Account data",
+          "operationId": "saveAccount",
+          "parameters": [
+            {
+              "name": "HealthDataDocument",
+              "in": "body",
+              "description": "Account data of the user",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/accountsDocument"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Created",
+              "schema": {
+                "$ref": "#/definitions/accountsDocument"
+              }
+            },
+            "400": {
+              "description": "Bad request, data is not as per JSON-API specification",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      "/account/{username}": {
+        "x-swagger-router-controller": "yagAccount",
+        "get": {
+          "tags": [
+            "YAG 1.1 : Accounts"
+          ],
+          "security": [
+            "basicAuth": []
+          ],
+          "description": "Returns user's Account Data by interacting with Account microservice",
+          "operationId": "getAccountByID",
+          "parameters": [
+            {
+              "name": "username",
+              "in": "path",
+              "description": "Username of the desired user ",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "Authori",
+              "in": "header",
+              "description": "Authorization token",
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/accountsDocument"
+              }
+            },
+            "404": {
+              "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        },
+        "put": {
+          "tags": [
+            "YAG 1.1 : Accounts"
+          ],
+          "security": [
+            "basicAuth": []
+          ],
+          "description": "update a user acount object",
+          "operationId": "updateByID",
+          "parameters": [
+            {
+              "name": "username",
+              "in": "path",
+              "description": "User id",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "updateAccount",
+              "in": "body",
+              "description": "User account document to be Updated",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/accountUpdateDocument"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Get account by userId",
+              "schema": {
+                "$ref": "#/definitions/accountsDocument"
+              }
+            },
+            "203": {
+              "description": "Non Authoritative Information",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "204": {
+              "description": "No Content Found",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "401": {
+              "description": "Unauthorize",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "404": {
+              "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "408": {
+              "description": "Timeout",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "409": {
+              "description": "Duplicate ID",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      "/account/get/{phone}": {
+        "x-swagger-router-controller": "yagAccount",
+        "get": {
+          "tags": [
+            "YAG 1.1 : Accounts"
+          ],
+          "description": "Returns user's Account Data by phone number",
+          "operationId": "getAccountByPhone",
+          "parameters": [
+            {
+              "name": "phone",
+              "in": "path",
+              "description": "phone number of the desired user ",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/accountsDocument"
+              }
+            },
+            "404": {
+              "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      "/account/removesec/{primary}/{secondary}": {
+        "x-swagger-router-controller": "yagAccount",
+        "delete": {
+          "tags": [
+            "YAG 1.1 : Accounts"
+          ],
+          "description": "Delete user's secondary user",
+          "operationId": "removeSec",
+          "parameters": [
+            {
+              "name": "primary",
+              "in": "path",
+              "description": "Primary Username",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "secondary",
+              "in": "path",
+              "description": "Secondary username",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/accountsDocument"
+              }
+            },
+            "404": {
+              "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      "/version": {
+        "x-swagger-router-controller": "yagAccount",
+        "get": {
+          "tags": [
+            "YAG 1.1 : Application versions"
+          ],
+          "description": "Get software version",
+          "operationId": "getversion",
+          "parameters": [
+          ],
+          "responses": {
+            "200": {
+              "description": "Get account by userId",
+              "schema": {
+                "$ref": "#/definitions/accountsDocument"
+              }
+            },
+            "203": {
+              "description": "Non Authoritative Information",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "204": {
+              "description": "No Content Found",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "401": {
+              "description": "Unauthorize",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "404": {
+              "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "408": {
+              "description": "Timeout",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "409": {
+              "description": "Duplicate ID",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": [
+            "YAG 1.1 : Application versions"
+          ],
+          "description": "Update versions",
+          "operationId": "createVersion",
+          "parameters": [
+            {
+              "name": "versionbody",
+              "in": "body",
+              "description": "Version body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/versionbody"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Get account by userId",
+              "schema": {
+                "$ref": "#/definitions/accountsDocument"
+              }
+            },
+            "203": {
+              "description": "Non Authoritative Information",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "204": {
+              "description": "No Content Found",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "401": {
+              "description": "Unauthorize",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "404": {
+              "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "408": {
+              "description": "Timeout",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "409": {
+              "description": "Duplicate ID",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      "/subscription/{username}": {
+        "x-swagger-router-controller": "yagSubscription",
+        "get": {
+          "tags": [
+            "YAG 1.1 : Subscription"
+          ],
+          "security": [
+            "basicAuth": []
+          ],
+          "description": "Returns user's Account Data by interacting with Subscription microservice",
+          "operationId": "getSubscriptionByID",
+          "parameters": [
+            {
+              "name": "username",
+              "in": "path",
+              "description": "Username of the desired user ",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "Authori",
+              "in": "header",
+              "description": "Authorization token",
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/subscriptionDocument"
+              }
+            },
+            "404": {
+              "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": [
+            "YAG 1.1 : Subscription"
+          ],
+          "security": [
+            "basicAuth": []
+          ],
+          "description": "Post subscription of username",
+          "operationId": "createSubscriptionByID",
+          "parameters": [
+            {
+              "name": "username",
+              "in": "path",
+              "description": "User id",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "subscriptionDocument",
+              "in": "body",
+              "description": "User account document to be Updated",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/subscriptionDocument"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Get account by userId",
+              "schema": {
+                "$ref": "#/definitions/subscriptionDocument"
+              }
+            },
+            "203": {
+              "description": "Non Authoritative Information",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "204": {
+              "description": "No Content Found",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "401": {
+              "description": "Unauthorize",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "404": {
+              "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "408": {
+              "description": "Timeout",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "409": {
+              "description": "Duplicate ID",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        },
+        "put": {
+          "tags": [
+            "YAG 1.1 : Subscription"
+          ],
+          "security": [
+            "basicAuth": []
+          ],
+          "description": "Get a user acount object",
+          "operationId": "updateSubscriptionByID",
+          "parameters": [
+            {
+              "name": "username",
+              "in": "path",
+              "description": "User id",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "subscriptionUpdateDocument",
+              "in": "body",
+              "description": "User account document to be Updated",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/subscriptionUpdateDocument"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Get account by userId",
+              "schema": {
+                "$ref": "#/definitions/subscriptionDocument"
+              }
+            },
+            "203": {
+              "description": "Non Authoritative Information",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "204": {
+              "description": "No Content Found",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "401": {
+              "description": "Unauthorize",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "404": {
+              "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "408": {
+              "description": "Timeout",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "409": {
+              "description": "Duplicate ID",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      "/subscription/share/{username}": {
+        "x-swagger-router-controller": "yagSubscription",
+        "post": {
+          "tags": [
+            "YAG 1.1 : Subscription"
+          ],
+          "security": [
+            "basicAuth": []
+          ],
+          "description": "Creates a subscription",
+          "operationId": "share",
+          "parameters": [
+            {
+              "name": "username",
+              "in": "path",
+              "description": "User account which share key",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "shareSub",
+              "in": "body",
+              "description": "User account document to be created",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/shareDocument"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Created",
+              "schema": {
+                "$ref": "#/definitions/subscriptionDocument"
+              }
+            },
+            "203": {
+              "description": "Non Authoritative Information",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "204": {
+              "description": "No Content Found",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "401": {
+              "description": "Unauthorize",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "404": {
+              "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "408": {
+              "description": "Timeout",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      "/subscription/master/{username}": {
+        "x-swagger-router-controller": "yagSubscription",
+        "get": {
+          "tags": [
+            "YAG 1.1 : Subscription"
+          ],
+          "security": [
+            "basicAuth": []
+          ],
+          "description": "Get a user acount object",
+          "operationId": "getMasterSubscriptionByID",
+          "parameters": [
+            {
+              "name": "username",
+              "in": "path",
+              "description": "User id",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Get account by userId",
+              "schema": {
+                "$ref": "#/definitions/subscriptionDocument"
+              }
+            },
+            "500": {
+              "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": [
+            "YAG 1.1 : Subscription"
+          ],
+          "security": [
+            "basicAuth": []
+          ],
+          "description": "Get a user acount object",
+          "operationId": "createMasterSubscriptionByID",
+          "parameters": [
+            {
+              "name": "username",
+              "in": "path",
+              "description": "User id",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "subscriptionDocument",
+              "in": "body",
+              "description": "User account document to be Updated",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/subscriptionMasterDocument"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Get account by userId",
+              "schema": {
+                "$ref": "#/definitions/subscriptionMasterDocument"
+              }
+            },
+            "203": {
+              "description": "Non Authoritative Information",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "204": {
+              "description": "No Content Found",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "401": {
+              "description": "Unauthorize",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "404": {
+              "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "408": {
+              "description": "Timeout",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "409": {
+              "description": "Duplicate ID",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        },
+        "put": {
+          "tags": [
+            "YAG 1.1 : Subscription"
+          ],
+          "security": [
+            "basicAuth": []
+          ],
+          "description": "Get a user acount object",
+          "operationId": "updateMasterSubscriptionByID",
+          "parameters": [
+            {
+              "name": "username",
+              "in": "path",
+              "description": "User id",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "updateSubscription",
+              "in": "body",
+              "description": "User subscription plan to be Updated",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/subscriptionMasterUpdateDocument"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Get account by userId",
+              "schema": {
+                "$ref": "#/definitions/subscriptionDocument"
+              }
+            },
+            "500": {
+              "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      "/health/BP/{username}": {
+        "x-swagger-router-controller": "yagBP",
+        "get": {
+          "tags": [
+            "YAG 1.1"
+          ],
+          "security": [
+            "basicAuth": []
+          ],
+          "description": "Returns user's BP Data by interacting with health microservice",
+          "operationId": "getBpByID",
+          "parameters": [
+            {
+              "name": "Authori",
+              "in": "header",
+              "description": "Authorization token",
+              "required": false,
+              "type": "string"
+            },
+            {
+              "name": "username",
+              "in": "path",
+              "description": "Username",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/BPDataObject"
+              }
+            },
+            "404": {
+              "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": [
+            "YAG 1.1"
+          ],
+          "security": [
+            "basicAuth": []
+          ],
+          "description": "save the user's BP data",
+          "operationId": "saveBp",
+          "parameters": [
+            {
+              "name": "Authorization",
+              "in": "header",
+              "description": "Authorization token",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "HealthDataDocument",
+              "in": "body",
+              "description": "BP document to be created",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/BPDataObject"
+              }
+            },
+            {
+              "name": "username",
+              "in": "path",
+              "description": "username worked as unique ID",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Created",
+              "schema": {
+                "$ref": "#/definitions/BPDataObject"
+              }
+            },
+            "400": {
+              "description": "Bad request, data is not as per JSON-API specification",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      "/health/bp/{username}/{createdTs}": {
+        "x-swagger-router-controller": "yagBP",
+        "delete": {
+          "tags": [
+            "YAG 1.1"
+          ],
+          "security": [
+            "basicAuth": []
+          ],
+          "operationId": "deleteBP",
+          "description": "Delete user BP value",
+          "parameters": [
+            {
+              "name": "username",
+              "in": "path",
+              "description": "The username of the person who want's ecg",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "createdTs",
+              "in": "path",
+              "description": "BP captured time",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/BPDataObject"
+              }
+            },
+            "203": {
+              "description": "Non Authoritative Information",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "204": {
+              "description": "No Content Found",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "401": {
+              "description": "Unauthorize",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "408": {
+              "description": "Timeout",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Internal Server Error",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      "/health/Sugar/{username}": {
+        "x-swagger-router-controller": "yagSugar",
+        "get": {
+          "tags": [
+            "YAG 1.1"
+          ],
+          "security": [
+            "basicAuth": []
+          ],
+          "description": "Returns user's Sugar Data by interacting with health microservice",
+          "operationId": "getSugarByID",
+          "parameters": [
+            {
+              "name": "Authorization",
+              "in": "header",
+              "description": "Authorization token",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "username",
+              "in": "path",
+              "description": "Username",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/SugarResponse"
+              }
+            },
+            "404": {
+              "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": [
+            "YAG 1.1"
+          ],
+          "security": [
+            "basicAuth": []
+          ],
+          "description": "save the user's Sugar data",
+          "operationId": "saveSugar",
+          "parameters": [
+            {
+              "name": "Authorization",
+              "in": "header",
+              "description": "Authorization token",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "HealthDataDocument",
+              "in": "body",
+              "description": "Sugar document to be created",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/SugarResponse"
+              }
+            },
+            {
+              "name": "username",
+              "in": "path",
+              "description": "username worked as unique ID",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Created",
+              "schema": {
+                "$ref": "#/definitions/SugarResponse"
+              }
+            },
+            "400": {
+              "description": "Bad request, data is not as per JSON-API specification",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      "/health/sugar/{username}/{createdTs}": {
+        "x-swagger-router-controller": "yagSugar",
+        "delete": {
+          "tags": [
+            "YAG 1.1"
+          ],
+          "security": [
+            "basicAuth": []
+          ],
+          "operationId": "deleteSugar",
+          "description": "Delete user's sugar data using createdTs",
+          "parameters": [
+            {
+              "name": "username",
+              "in": "path",
+              "description": "The username of the person who want's ecg",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "createdTs",
+              "in": "path",
+              "description": "sugar captured time",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/SugarResponse"
+              }
+            },
+            "203": {
+              "description": "Non Authoritative Information",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "204": {
+              "description": "No Content Found",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "401": {
+              "description": "Unauthorize",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "408": {
+              "description": "Timeout",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Internal Server Error",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      "/health/Cholesterol/{username}": {
+        "x-swagger-router-controller": "yagCholesterol",
+        "get": {
+          "tags": [
+            "YAG 1.1"
+          ],
+          "security": [
+            "basicAuth": []
+          ],
+          "description": "Returns user's cholesterol data using username",
+          "operationId": "getCholesterolByID",
+          "parameters": [
+            {
+              "name": "Authorization",
+              "in": "header",
+              "description": "Authorization token",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "username",
+              "in": "path",
+              "description": "Username",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/CholesterolResponse"
+              }
+            },
+            "404": {
+              "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": [
+            "YAG 1.1"
+          ],
+          "security": [
+            "basicAuth": []
+          ],
+          "description": "save the user's cholesterol data",
+          "operationId": "saveCholesterol",
+          "parameters": [
+            {
+              "name": "Authorization",
+              "in": "header",
+              "description": "Authorization token",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "HealthDataDocument",
+              "in": "body",
+              "description": "BP data schema",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/CholesterolResponse"
+              }
+            },
+            {
+              "name": "username",
+              "in": "path",
+              "description": "username worked as unique ID",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Created",
+              "schema": {
+                "$ref": "#/definitions/CholesterolResponse"
+              }
+            },
+            "400": {
+              "description": "Bad request, data is not as per JSON-API specification",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      "/health/cholesterol/{username}/{createdTs}": {
+        "x-swagger-router-controller": "yagCholesterol",
+        "delete": {
+          "tags": [
+            "YAG 1.1"
+          ],
+          "security": [
+            "basicAuth": []
+          ],
+          "operationId": "deleteCholesterol",
+          "description": "Delete user's cholesterol data created on some time",
+          "parameters": [
+            {
+              "name": "username",
+              "in": "path",
+              "description": "The username of the person who want's ecg",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "createdTs",
+              "in": "path",
+              "description": "Cholesterol captured time",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/CholesterolResponse"
+              }
+            },
+            "203": {
+              "description": "Non Authoritative Information",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "204": {
+              "description": "No Content Found",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "401": {
+              "description": "Unauthorize",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "408": {
+              "description": "Timeout",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Internal Server Error",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      "/health/ecg/{username}": {
+        "x-swagger-router-controller": "yagEcg",
+        "get": {
+          "tags": [
+            "YAG 1.1"
+          ],
+          "security": [
+            "basicAuth": []
+          ],
+          "description": "Returns user's ecg Data by interacting with health microservice",
+          "operationId": "getEcgByID",
+          "parameters": [
+            {
+              "name": "Authorization",
+              "in": "header",
+              "description": "Authorization token",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "username",
+              "in": "path",
+              "description": "Username",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/ECGResponse"
+              }
+            },
+            "404": {
+              "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": [
+            "YAG 1.1"
+          ],
+          "security": [
+            "basicAuth": []
+          ],
+          "description": "save the user's ECG data",
+          "operationId": "saveECG",
+          "parameters": [
+            {
+              "name": "Authorization",
+              "in": "header",
+              "description": "Authorization token",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "HealthDataDocument",
+              "in": "body",
+              "description": "ECG data schema",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/ECGResponse"
+              }
+            },
+            {
+              "name": "username",
+              "in": "path",
+              "description": "username worked as unique ID",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Created",
+              "schema": {
+                "$ref": "#/definitions/ECGResponse"
+              }
+            },
+            "400": {
+              "description": "Bad request, data is not as per JSON-API specification",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      "/health/ecgRaw": {
+        "x-swagger-router-controller": "yagEcg",
+        "post": {
+          "tags": [
+            "YAG 1.1"
+          ],
+          "description": "save the user's Raw ECG data",
+          "operationId": "saveECGRaw",
+          "parameters": [
+            {
+              "name": "HealthDataDocument",
+              "in": "body",
+              "description": "ECG data schema",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/ECGRawResponse"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Created",
+              "schema": {
+                "$ref": "#/definitions/ECGRawResponse"
+              }
+            },
+            "400": {
+              "description": "Bad request, data is not as per JSON-API specification",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      "/get/ecg/{ecgid}": {
+        "x-swagger-router-controller": "yagEcg",
+        "get": {
+          "tags": [
+            "YAG 1.1 : label"
+          ],
+          "description": "save the user's Sugar data",
+          "operationId": "getecgbyobjid",
+          "parameters": [
+            {
+              "name": "ecgid",
+              "in": "path",
+              "description": "The username of the person who want's ecg",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Created",
+              "schema": {
+                "$ref": "#/definitions/ECGRawResponse"
+              }
+            },
+            "400": {
+              "description": "Bad request, data is not as per JSON-API specification",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      "/get/stress/{stressid}": {
+        "x-swagger-router-controller": "yagStress",
+        "get": {
+          "tags": [
+            "YAG 1.1 : label"
+          ],
+          "description": "save the user's Sugar data",
+          "operationId": "getstressbyobjid",
+          "parameters": [
+            {
+              "name": "stressid",
+              "in": "path",
+              "description": "The username of the person who want's ecg",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Created",
+              "schema": {
+                "$ref": "#/definitions/ECGRawResponse"
+              }
+            },
+            "400": {
+              "description": "Bad request, data is not as per JSON-API specification",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      "/health/ecg/symptom/{ecgid}": {
+        "x-swagger-router-controller": "yagEcg",
+        "put": {
+          "tags": [
+            "YAG 1.1"
+          ],
+          "description": "Save symptom in a perticular ecg",
+          "operationId": "updatesymptom",
+          "parameters": [
+            {
+              "name": "updatesym",
+              "in": "body",
+              "description": "Symptom",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/updatesym"
+              }
+            },
+            {
+              "name": "ecgid",
+              "in": "path",
+              "description": "ECG data id",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Created",
+              "schema": {
+                "$ref": "#/definitions/ECGRawResponse"
+              }
+            },
+            "400": {
+              "description": "Bad request, data is not as per JSON-API specification",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      "/health/stress/symptom/{stressid}": {
+        "x-swagger-router-controller": "yagStress",
+        "put": {
+          "tags": [
+            "YAG 1.1"
+          ],
+          "description": "Save symptom in a perticular stress",
+          "operationId": "updatesymptomstress",
+          "parameters": [
+            {
+              "name": "updatesym",
+              "in": "body",
+              "description": "symtom",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/updatesym"
+              }
+            },
+            {
+              "name": "stressid",
+              "in": "path",
+              "description": "Stress data id",
+              "required": true,
+              "type": "string"
+            },
+          ],
+          "responses": {
+            "200": {
+              "description": "Created",
+              "schema": {
+                "$ref": "#/definitions/ECGRawResponse"
+              }
+            },
+            "400": {
+              "description": "Bad request, data is not as per JSON-API specification",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      "/health/ecg/{username}/{start}/{end}": {
+        "x-swagger-router-controller": "yagEcg",
+        "get": {
+          "tags": [
+            "YAG 1.1"
+          ],
+          "operationId": "getEcgByDate",
+          "description": "Get ecg data of a username in between two dates",
+          "parameters": [
+            {
+              "name": "username",
+              "in": "path",
+              "description": "The username of the person who want's ecg",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "start",
+              "in": "path",
+              "description": "Start time",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "end",
+              "in": "path",
+              "description": "End time",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/ECGResponse"
+              }
+            },
+            "203": {
+              "description": "Non Authoritative Information",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "204": {
+              "description": "No Content Found",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "401": {
+              "description": "Unauthorize",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "408": {
+              "description": "Timeout",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Internal Server Error",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      "/health/ecg/device/{deviceId}/{start}/{end}": {
+        "x-swagger-router-controller": "yagEcg",
+        "get": {
+          "tags": [
+            "YAG 1.1"
+          ],
+          "operationId": "getEcgByDevice",
+          "description": "Get user ECG value using deviceid and time between",
+          "parameters": [
+            {
+              "name": "deviceId",
+              "in": "path",
+              "description": "DeviceId ",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "start",
+              "in": "path",
+              "description": "Start date",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "end",
+              "in": "path",
+              "description": "End Date",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/ECGResponse"
+              }
+            },
+            "203": {
+              "description": "Non Authoritative Information",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "204": {
+              "description": "No Content Found",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "401": {
+              "description": "Unauthorize",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "408": {
+              "description": "Timeout",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Internal Server Error",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      "/health/ecg/lab/devicedata/{deviceId}/{index}": {
+        "x-swagger-router-controller": "yagEcg",
+        "get": {
+          "tags": [
+            "YAG 1.1"
+          ],
+          "operationId": "getEcgByDeviceIdPagination",
+          "description": "Get ecg data of lab's deviceId with pagination",
+          "parameters": [
+            {
+              "name": "deviceId",
+              "in": "path",
+              "description": "Device ID",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "index",
+              "in": "path",
+              "description": "Start index for pagination",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/ECGResponse"
+              }
+            },
+            "203": {
+              "description": "Non Authoritative Information",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "204": {
+              "description": "No Content Found",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "401": {
+              "description": "Unauthorize",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "408": {
+              "description": "Timeout",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Internal Server Error",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      "/health/ecg/{username}/{createdTs}": {
+        "x-swagger-router-controller": "yagEcg",
+        "delete": {
+          "tags": [
+            "YAG 1.1"
+          ],
+          "security": [
+            "basicAuth": []
+          ],
+          "operationId": "deleteECG",
+          "description": "Delete user ECG value",
+          "parameters": [
+            {
+              "name": "username",
+              "in": "path",
+              "description": "The username of the person who want's ecg",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "createdTs",
+              "in": "path",
+              "description": "ECG captured time",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/ECGResponse"
+              }
+            },
+            "203": {
+              "description": "Non Authoritative Information",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "204": {
+              "description": "No Content Found",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "401": {
+              "description": "Unauthorize",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "408": {
+              "description": "Timeout",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Internal Server Error",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      
+      "/health/{username}": {
+        "x-swagger-router-controller": "yagHealth",
+        "get": {
+          "tags": [
+            "YAG 1.1 : Health"
+          ],
+          "security": [
+            "basicAuth": []
+          ],
+          "description": "Returns 'All Health' values to the caller",
+          "operationId": "getHealthByID",
+          "parameters": [
+            {
+              "name": "username",
+              "in": "path",
+              "description": "Return 'Health data' of a perticular user.",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/HealthResponse"
+              }
+            },
+            "203": {
+              "description": "Non Authoritative Information",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "204": {
+              "description": "No Content Found",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "401": {
+              "description": "Unauthorize",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "408": {
+              "description": "Timeout",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Internal Server Error",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      
+      "/health/real/{username}/{deviceId}": {
+        "x-swagger-router-controller": "yagHealth",
+        "get": {
+          "tags": [
+            "YAG 1.1 : Health"
+          ],
+          "description": "Returns 'All Health' values to the caller",
+          "operationId": "getrealdata",
+          "parameters": [
+            {
+              "name": "username",
+              "in": "path",
+              "description": "Return 'Health data' of a perticular user.",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "deviceId",
+              "in": "path",
+              "description": "Return 'Health data' of a perticular user.",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/HealthResponse"
+              }
+            },
+            "203": {
+              "description": "Non Authoritative Information",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "204": {
+              "description": "No Content Found",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "401": {
+              "description": "Unauthorize",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "408": {
+              "description": "Timeout",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Internal Server Error",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      "/pricingPlans/master": {
+        "x-swagger-router-controller": "yagPricingPlan",
+        "get": {
+          "tags": [
+            "YAG 1.1 : PricingPlan"
+          ],
+          "description": "Returns the list of all pricing plans available",
+          "operationId": "getMaster",
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/pricingPlanMaster"
+              }
+            },
+            "203": {
+              "description": "Non Authoritative Information",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "204": {
+              "description": "No Content Found",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "401": {
+              "description": "Unauthorize",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "408": {
+              "description": "Timeout",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Internal Server Error",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": [
+            "YAG 1.1 : PricingPlan"
+          ],
+          "description": "method to create new pricing plan",
+          "operationId": "createMasterPlan",
+          "parameters": [
+            {
+              "name": "pricingplan",
+              "in": "body",
+              "description": "pricingplan to be created will be sent in body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/pricingPlanMaster"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/pricingPlanMaster"
+              }
+            },
+            "203": {
+              "description": "Non Authoritative Information",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "204": {
+              "description": "No Content Found",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "401": {
+              "description": "Unauthorize",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "408": {
+              "description": "Timeout",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Internal Server Error",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      "/pricingPlan": {
+        "x-swagger-router-controller": "yagPricingPlan",
+        "get": {
+          "tags": [
+            "YAG 1.1 : PricingPlan"
+          ],
+          "security": [
+            "basicAuth": []
+          ],
+          "description": "Returns 'All Health' values to the caller",
+          "operationId": "getpricingPlan",
+          "parameters": [],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/pricingPlan"
+              }
+            },
+            "203": {
+              "description": "Non Authoritative Information",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "204": {
+              "description": "No Content Found",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "401": {
+              "description": "Unauthorize",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "408": {
+              "description": "Timeout",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Internal Server Error",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": [
+            "YAG 1.1 : PricingPlan"
+          ],
+          "description": "method to create new pricing plan",
+          "operationId": "createplan",
+          "parameters": [
+            {
+              "name": "pricingplan",
+              "in": "body",
+              "description": "pricingplan to be created will be sent in body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/pricingPlan"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/pricingPlan"
+              }
+            },
+            "203": {
+              "description": "Non Authoritative Information",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "204": {
+              "description": "No Content Found",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "401": {
+              "description": "Unauthorize",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "408": {
+              "description": "Timeout",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Internal Server Error",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      "/health/stress/{username}": {
+        "x-swagger-router-controller": "yagStress",
+        "get": {
+          "tags": [
+            "YAG 1.1 : Stress"
+          ],
+          "security": [
+            "basicAuth": []
+          ],
+          "description": "Returns 'Hello' to the caller",
+          "operationId": "getStressByID",
+          "parameters": [
+            {
+              "name": "username",
+              "in": "path",
+              "description": "The name of the person to whom to say hello",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/StressResponse"
+              }
+            },
+            "203": {
+              "description": "Non Authoritative Information",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "204": {
+              "description": "No Content Found",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "401": {
+              "description": "Unauthorize",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "408": {
+              "description": "Timeout",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Internal Server Error",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": [
+            "YAG 1.1 : Stress"
+          ],
+          "security": [
+            "basicAuth": []
+          ],
+          "description": "Returns 'Hello' to the caller",
+          "operationId": "saveStress",
+          "parameters": [
+            {
+              "name": "username",
+              "in": "path",
+              "description": "The name of the person to whom to say hello",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "HealthDataDocument",
+              "in": "body",
+              "description": "The username of the person who want's ecg",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/StressResponse"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Created",
+              "schema": {
+                "$ref": "#/definitions/StressResponse"
+              }
+            },
+            "203": {
+              "description": "Non Authoritative Information",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "204": {
+              "description": "No Content Found",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "401": {
+              "description": "Unauthorize",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "408": {
+              "description": "Timeout",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Internal Server Error",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      "/health/stress/{username}/{createdTs}": {
+        "x-swagger-router-controller": "yagStress",
+        "delete": {
+          "tags": [
+            "YAG 1.1 : Stress"
+          ],
+          "security": [
+            "basicAuth": []
+          ],
+          "operationId": "deleteStress",
+          "description": "Delete user ECG value",
+          "parameters": [
+            {
+              "name": "username",
+              "in": "path",
+              "description": "The username of the person who want's ecg",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "createdTs",
+              "in": "path",
+              "description": "ECG captured time",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/StressResponse"
+              }
+            },
+            "203": {
+              "description": "Non Authoritative Information",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "204": {
+              "description": "No Content Found",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "401": {
+              "description": "Unauthorize",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "408": {
+              "description": "Timeout",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Internal Server Error",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      "/health/stress/{username}/{start}/{end}": {
+        "x-swagger-router-controller": "yagStress",
+        "get": {
+          "tags": [
+            "YAG 1.1 : Stress"
+          ],
+          "operationId": "getStressByDate",
+          "description": "Delete user ECG value",
+          "parameters": [
+            {
+              "name": "username",
+              "in": "path",
+              "description": "The username of the person who want's ecg",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "start",
+              "in": "path",
+              "description": "ECG captured time",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "end",
+              "in": "path",
+              "description": "ECG captured time",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/StressResponse"
+              }
+            },
+            "203": {
+              "description": "Non Authoritative Information",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "204": {
+              "description": "No Content Found",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "401": {
+              "description": "Unauthorize",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "408": {
+              "description": "Timeout",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Internal Server Error",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      "/health/stress/device/{deviceId}/{start}/{end}": {
+        "x-swagger-router-controller": "yagStress",
+        "get": {
+          "tags": [
+            "YAG 1.1 : Stress"
+          ],
+          "operationId": "getStressByDevice",
+          "description": "Delete user ECG value",
+          "parameters": [
+            {
+              "name": "deviceId",
+              "in": "path",
+              "description": "The username of the person who want's ecg",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "start",
+              "in": "path",
+              "description": "ECG captured time",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "end",
+              "in": "path",
+              "description": "ECG captured time",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/StressResponse"
+              }
+            },
+            "203": {
+              "description": "Non Authoritative Information",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "204": {
+              "description": "No Content Found",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "401": {
+              "description": "Unauthorize",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "408": {
+              "description": "Timeout",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Internal Server Error",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      "/accounts/Add/{user}": {
+        "x-swagger-router-controller": "yagFollower",
+        "post": {
+          "tags": [
+            "YAG 1.1 : Followers"
+          ],
+          "security": [
+            "basicAuth": []
+          ],
+          "description": "Add user from the list of all users available on perticular name or username",
+          "operationId": "Add",
+          "parameters": [
+            {
+              "name": "linkObject",
+              "in": "body",
+              "description": "Link object have the params of user which wants to be add",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/linkDocument"
+              }
+            },
+            {
+              "name": "user",
+              "in": "path",
+              "description": "It can be username or a user name to whom we want to follow",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Created",
+              "schema": {
+                "$ref": "#/definitions/accountsDocument"
+              }
+            },
+            "404": {
+              "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      "/accounts/Delete/{username}": {
+        "x-swagger-router-controller": "yagFollower",
+        "post": {
+          "tags": [
+            "YAG 1.1 : Followers"
+          ],
+          "security": [
+            "basicAuth": []
+          ],
+          "description": "Delete user from the list of all users available on perticular name or username",
+          "operationId": "Delete",
+          "parameters": [
+            {
+              "name": "linkObject",
+              "in": "body",
+              "description": "Link object have the params of user which wants to be Delete",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/linkDocument"
+              }
+            },
+            {
+              "name": "username",
+              "in": "path",
+              "description": "It can be username or a user name to whom we want to follow",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Created",
+              "schema": {
+                "$ref": "#/definitions/accountsDocument"
+              }
+            },
+            "404": {
+              "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      "/accounts/Accept/{user}": {
+        "x-swagger-router-controller": "yagFollower",
+        "post": {
+          "tags": [
+            "YAG 1.1 : Followers"
+          ],
+          "security": [
+            "basicAuth": []
+          ],
+          "description": "Accept user from the list of all users available on perticular name or username",
+          "operationId": "Accept",
+          "parameters": [
+            {
+              "name": "linkObject",
+              "in": "body",
+              "description": "Link object have the params of user which wants to be add",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/linkDocument"
+              }
+            },
+            {
+              "name": "user",
+              "in": "path",
+              "description": "It can be username or a user name to whom we want to follow",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Created",
+              "schema": {
+                "$ref": "#/definitions/accountsDocument"
+              }
+            },
+            "404": {
+              "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      "/accounts/master": {
+        "x-swagger-router-controller": "yagMaster",
+        "get": {
+          "tags": [
+            "YAG 1.1 : Master Accounts"
+          ],
+          "security": [
+            "basicAuth": []
+          ],
+          "description": "Returns the list of all users available",
+          "operationId": "getAllMaster",
+          "parameters": [],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/masterAccountsDocument"
+              }
+            },
+            "203": {
+              "description": "Non Authoritative Information",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "204": {
+              "description": "No Content Found",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "401": {
+              "description": "Unauthorize",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "408": {
+              "description": "Timeout",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "409": {
+              "description": "Duplicate ID",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": [
+            "YAG 1.1 : Master Accounts"
+          ],
+          "description": "Creates a user Account",
+          "operationId": "createMaster",
+          "parameters": [
+            {
+              "name": "master",
+              "in": "body",
+              "description": "User account document to be created",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/masterAccountsDocument"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Created",
+              "schema": {
+                "$ref": "#/definitions/masterAccountsDocument"
+              }
+            },
+            "204": {
+              "description": "No Content Found",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "401": {
+              "description": "Unauthorize",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "408": {
+              "description": "Timeout",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "409": {
+              "description": "Duplicate ID",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      "/account/sendotp/{phonenumber}": {
+        "x-swagger-router-controller": "yagAccount",
+        "get": {
+          "tags": [
+            "Accounts"
+          ],
+          "description": "Generate OTP",
+          "operationId": "createOtp",
+          "parameters": [
+            {
+              "name": "phonenumber",
+              "in": "path",
+              "description": "Phone number of user",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Get account by userId",
+              "schema": {
+                "$ref": "#/definitions/otpsend"
+              }
+            },
+            "203": {
+              "description": "Non Authoritative Information",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "204": {
+              "description": "No Content Found",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "401": {
+              "description": "Unauthorize",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "404": {
+              "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "408": {
+              "description": "Timeout",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "409": {
+              "description": "Duplicate ID",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      "/account/reset/{username}": {
+        "x-swagger-router-controller": "yagAccount",
+        "get": {
+          "tags": [
+            "Accounts"
+          ],
+          "description": "Password reset api",
+          "operationId": "resetID",
+          "parameters": [
+            {
+              "name": "username",
+              "in": "path",
+              "description": "User id",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Get account by userId",
+              "schema": {
+                "$ref": "#/definitions/accountsDocument"
+              }
+            },
+            "203": {
+              "description": "Non Authoritative Information",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "204": {
+              "description": "No Content Found",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "401": {
+              "description": "Unauthorize",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "404": {
+              "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "408": {
+              "description": "Timeout",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "409": {
+              "description": "Duplicate ID",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      "/account/resetUsername/{mobile}": {
+        "x-swagger-router-controller": "yagAccount",
+        "get": {
+          "tags": [
+            "Accounts"
+          ],
+          "description": "Reset username",
+          "operationId": "resetUsername",
+          "parameters": [
+            {
+              "name": "mobile",
+              "in": "path",
+              "description": "Mobile number",
+              "required": true,
+              "type": "number"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Get account by userId",
+              "schema": {
+                "$ref": "#/definitions/accountsDocument"
+              }
+            },
+            "203": {
+              "description": "Non Authoritative Information",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "204": {
+              "description": "No Content Found",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "401": {
+              "description": "Unauthorize",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "404": {
+              "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "408": {
+              "description": "Timeout",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "409": {
+              "description": "Duplicate ID",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      "/account/resetkey/{key}": {
+        "x-swagger-router-controller": "yagAccount",
+        "get": {
+          "tags": [
+            "Accounts"
+          ],
+          "description": "Reset key verify api",
+          "operationId": "resetKey",
+          "parameters": [
+            {
+              "name": "key",
+              "in": "path",
+              "description": "Verification Key",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Get account by userId",
+              "schema": {
+                "$ref": "#/definitions/accountsDocument"
+              }
+            },
+            "203": {
+              "description": "Non Authoritative Information",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "204": {
+              "description": "No Content Found",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "401": {
+              "description": "Unauthorize",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "404": {
+              "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "408": {
+              "description": "Timeout",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "409": {
+              "description": "Duplicate ID",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      "/account/password/reset/{username}": {
+        "x-swagger-router-controller": "yagAccount",
+        "post": {
+          "tags": [
+            "Accounts"
+          ],
+          "description": "Reset password of a username",
+          "operationId": "resetPassword",
+          "parameters": [
+            {
+              "name": "username",
+              "in": "path",
+              "description": "User Name",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "passwordBody",
+              "in": "body",
+              "description": "User password",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/passwordBody"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Get account by userId",
+              "schema": {
+                "$ref": "#/definitions/accountsDocument"
+              }
+            },
+            "203": {
+              "description": "Non Authoritative Information",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "204": {
+              "description": "No Content Found",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "401": {
+              "description": "Unauthorize",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "404": {
+              "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "408": {
+              "description": "Timeout",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "409": {
+              "description": "Duplicate ID",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      "/account/master/{username}": {
+        "x-swagger-router-controller": "yagMaster",
+        "get": {
+          "tags": [
+            "YAG 1.1 : Master Accounts"
+          ],
+          "security": [
+            "basicAuth": []
+          ],
+          "description": "Get a user acount object",
+          "operationId": "getMasterByID",
+          "parameters": [
+            {
+              "name": "username",
+              "in": "path",
+              "description": "User id",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Get account by userId",
+              "schema": {
+                "$ref": "#/definitions/masterAccountsDocument"
+              }
+            },
+            "203": {
+              "description": "Non Authoritative Information",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "204": {
+              "description": "No Content Found",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "401": {
+              "description": "Unauthorize",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "404": {
+              "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "408": {
+              "description": "Timeout",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "409": {
+              "description": "Duplicate ID",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        },
+        "put": {
+          "tags": [
+            "YAG 1.1 : Master Accounts"
+          ],
+          "security": [
+            "basicAuth": []
+          ],
+          "description": "Get a user acount object",
+          "operationId": "updateMasterByID",
+          "parameters": [
+            {
+              "name": "username",
+              "in": "path",
+              "description": "User id",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "updateMaster",
+              "in": "body",
+              "description": "User account document to be Updated",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/masterAccountUpdateDocument"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Get account by userId",
+              "schema": {
+                "$ref": "#/definitions/accountsDocument"
+              }
+            },
+            "203": {
+              "description": "Non Authoritative Information",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "204": {
+              "description": "No Content Found",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "401": {
+              "description": "Unauthorize",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "404": {
+              "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "408": {
+              "description": "Timeout",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "409": {
+              "description": "Duplicate ID",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      "/accounts/link/{username}": {
+        "x-swagger-router-controller": "yagLink",
+        "post": {
+          "tags": [
+            "YAG 1.1 : Links"
+          ],
+          "security": [
+            "basicAuth": []
+          ],
+          "description": "Add user from the list of all users available on perticular name or username",
+          "operationId": "Links",
+          "parameters": [
+            {
+              "name": "linkObject",
+              "in": "body",
+              "description": "Link object have the params of user which wants to be add",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/linkShareDocument"
+              }
+            },
+            {
+              "name": "username",
+              "in": "path",
+              "description": "It can be username or a user name to whom we want to follow",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/accountsDocument"
+              }
+            },
+            "404": {
+              "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      "/accounts/link/Account/{username}": {
+        "x-swagger-router-controller": "yagLink",
+        "get": {
+          "tags": [
+            "YAG 1.1 : Links"
+          ],
+          "security": [
+            "basicAuth": []
+          ],
+          "description": "Add user from the list of all users available on perticular name or username",
+          "operationId": "LinkAcc",
+          "parameters": [
+            {
+              "name": "linkAccKey",
+              "in": "header",
+              "description": "Link object have the params of user which wants to be add",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "username",
+              "in": "path",
+              "description": "It can be username or a user name to whom we want to follow",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Created",
+              "schema": {
+                "$ref": "#/definitions/accountsDocument"
+              }
+            },
+            "404": {
+              "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      "/accounts/search/{user}": {
+        "x-swagger-router-controller": "yagFollower",
+        "get": {
+          "tags": [
+            "YAG 1.1 : Followers"
+          ],
+          "security": [
+            "basicAuth": []
+          ],
+          "description": "Returns the list of all users available on perticular name or username",
+          "operationId": "searchAll",
+          "parameters": [
+            {
+              "name": "user",
+              "in": "path",
+              "description": "It can be username or a name to whom we want to follow",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/accountsDocument"
+              }
+            },
+            "404": {
+              "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            },
+            "500": {
+              "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+              "schema": {
+                "$ref": "#/definitions/errorDocument"
+              }
+            }
+          }
+        }
+      },
+      "/swagger": {
+        "x-swagger-pipe": "swagger_raw"
+      }
+    },
+    "definitions": {
+      "BPDataDocument": {
+        "title": "BPDataDocument",
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/BPDataObject"
+            }
+          }
+        }
+      },
+      "BPDataObject": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "type",
+                "id",
+                "attributes"
+              ],
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "attributes": {
+                  "type": "object",
+                  "properties": {
+                    "diastolic": {
+                      "type": "number"
+                    },
+                    "systolic": {
+                      "type": "number"
+                    },
+                    "createdTs": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "meta": {
+            "type": "object"
+          },
+          "include": {
+            "type": "object"
+          }
+        }
+      },
+      "SugarResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "type",
+                "id",
+                "attributes"
+              ],
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "attributes": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "number"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "createdTs": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "meta": {
+            "type": "object"
+          },
+          "include": {
+            "type": "object"
+          }
+        }
+      },
+      "ECGResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "type",
+                "id"
+              ],
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "attributes": {
+                  "type": "object",
+                  "required": [
+                    "lead1",
+                    "createdTs"
+                  ],
+                  "properties": {
+                    "username": {
+                      "type": "string"
+                    },
+                    "symptoms": {
+                      "type": "string"
+                    },
+                    "hr": {
+                      "type": "number"
+                    },
+                    "pr": {
+                      "type": "number"
+                    },
+                    "qt": {
+                      "type": "number"
+                    },
+                    "qtc": {
+                      "type": "number"
+                    },
+                    "qrs": {
+                      "type": "number"
+                    },
+                    "nn150": {
+                      "type": "number"
+                    },
+                    "nn2k": {
+                      "type": "number"
+                    },
+                    "minHr": {
+                      "type": "number"
+                    },
+                    "maxHr": {
+                      "type": "number"
+                    },
+                    "lead1": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "lead2": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "lead3": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "v1": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "v2": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "v3": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "v4": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "v5": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "v6": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "avL": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "avF": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "avR": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "longLead": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "rrInterval": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "arrHr": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "mcodeLead1": {
+                      "type": "string"
+                    },
+                    "mcodeLead2": {
+                      "type": "string"
+                    },
+                    "mcodeLead3": {
+                      "type": "string"
+                    },
+                    "mcodeLeadavR": {
+                      "type": "string"
+                    },
+                    "mcodeLeadavL": {
+                      "type": "string"
+                    },
+                    "mcodeLeadavF": {
+                      "type": "string"
+                    },
+                    "mcodeLeadv1": {
+                      "type": "string"
+                    },
+                    "mcodeLeadv2": {
+                      "type": "string"
+                    },
+                    "mcodeLeadv3": {
+                      "type": "string"
+                    },
+                    "mcodeLeadv4": {
+                      "type": "string"
+                    },
+                    "mcodeLeadv5": {
+                      "type": "string"
+                    },
+                    "mcodeLeadv6": {
+                      "type": "string"
+                    },
+                    "batteryLevel": {
+                      "type": "number"
+                    },
+                    "deviceId": {
+                      "type": "string"
+                    },
+                    "leadCount": {
+                      "type": "number"
+                    },
+                    "lat": {
+                      "type": "string"
+                    },
+                    "long": {
+                      "type": "string"
+                    },
+                    "pdfurl": {
+                      "type": "string"
+                    },
+                    "deviceType": {
+                      "type": "string"
+                    },
+                    "fullReport": {
+                      "type": "boolean"
+                    },
+                    "createdTs": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "firmwareVersion": {
+                      "type": "string"
+                    },
+                    "appVersion": {
+                      "type": "string"
+                    },
+                    "phoneModel": {
+                      "type": "string"
+                    },
+                    "osVersion": {
+                      "type": "string"
+                    },
+                    "isConverted":{
+                      "type":"boolean"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "meta": {
+            "type": "object"
+          },
+          "include": {
+            "type": "object"
+          }
+        }
+      },
+      "ECGRawResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "type",
+                "id"
+              ],
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "attributes": {
+                  "type": "object",
+                  "required": [
+                    "username",
+                    "createdTs"
+                  ],
+                  "properties": {
+                    "username": {
+                      "type": "string"
+                    },
+                    "symptoms": {
+                      "type": "string"
+                    },
+                    "hr": {
+                      "type": "number"
+                    },
+                    "pr": {
+                      "type": "number"
+                    },
+                    "qt": {
+                      "type": "number"
+                    },
+                    "qtc": {
+                      "type": "number"
+                    },
+                    "qrs": {
+                      "type": "number"
+                    },
+                    "rawLead1": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "rawLead2": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "rawV1": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "rawV2": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "rawV3": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "rawV4": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "rawV5": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "rawV6": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "longLead": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "convertedLead1": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "convertedLead2": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "convertedLead3": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "convertedV1": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "convertedV2": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "convertedV3": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "convertedV4": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "convertedV5": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "convertedV6": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "convertedavL": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "convertedavF": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "convertedavR": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "deviceId": {
+                      "type": "string"
+                    },
+                    "leadCount": {
+                      "type": "number"
+                    },
+                    "lat": {
+                      "type": "string"
+                    },
+                    "long": {
+                      "type": "string"
+                    },
+                    "pdfurl": {
+                      "type": "string"
+                    },
+                    "batteryLevel": {
+                      "type": "number"
+                    },
+                    "createdTs": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "firmwareVersion": {
+                      "type": "string"
+                    },
+                    "appVersion": {
+                      "type": "string"
+                    },
+                    "phoneModel": {
+                      "type": "string"
+                    },
+                    "osVersion": {
+                      "type": "string"
+                    },
+                    "isConverted":{
+                      "type":"number"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "meta": {
+            "type": "object"
+          },
+          "include": {
+            "type": "object"
+          }
+        }
+      },
+      "StressResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "type",
+                "id"
+              ],
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "attributes": {
+                  "type": "object",
+                  "properties": {
+                    "hr": {
+                      "type": "number"
+                    },
+                    "mrr": {
+                      "type": "number"
+                    },
+                    "sdnn": {
+                      "type": "number"
+                    },
+                    "rmssd": {
+                      "type": "number"
+                    },
+                    "pr": {
+                      "type": "number"
+                    },
+                    "qt": {
+                      "type": "number"
+                    },
+                    "minHr": {
+                      "type": "number"
+                    },
+                    "maxHr": {
+                      "type": "number"
+                    },
+                    "symptoms": {
+                      "type": "string"
+                    },
+                    "vmRatio": {
+                      "type": "string"
+                    },
+                    "qtc": {
+                      "type": "number"
+                    },
+                    "qrs": {
+                      "type": "number"
+                    },
+                    "pnn50": {
+                      "type": "number"
+                    },
+                    "nn150": {
+                      "type": "number"
+                    },
+                    "lat":{
+                      "type":"string"
+                    },
+                    "long":{
+                      "type":"string"
+                    },
+                    "nn2k": {
+                      "type": "number"
+                    },
+                    "deviceType": {
+                      "type": "string"
+                    },
+                    "fullReport": {
+                      "type": "boolean"
+                    },
+                    "value": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "rrInterval": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "arrHr": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "createdTs": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "firmwareVersion": {
+                      "type": "string"
+                    },
+                    "appVersion": {
+                      "type": "string"
+                    },
+                    "phoneModel": {
+                      "type": "string"
+                    },
+                    "osVersion": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "meta": {
+            "type": "object"
+          },
+          "include": {
+            "type": "object"
+          }
+        }
+      },
+      "CholesterolResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "type",
+                "id",
+                "attributes"
+              ],
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "attributes": {
+                  "type": "object",
+                  "properties": {
+                    "ldl": {
+                      "type": "number"
+                    },
+                    "hdl": {
+                      "type": "number"
+                    },
+                    "tri": {
+                      "type": "number"
+                    },
+                    "createdTs": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "meta": {
+            "type": "object"
+          },
+          "include": {
+            "type": "object"
+          }
+        }
+      },
+      "accountsDocument": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "title": "accountResource",
+            "type": "object",
+            "allOf": [
+              {
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "Primary",
+                      "Secondary"
+                    ]
+                  },
+                  "id": {
+                    "type": "string",
+                    "description": "Unique identifier"
+                  },
+                  "attributes": {
+                    "type": "object",
+                    "required": [
+                      "name",
+                      "type",
+                      "username",
+                      "password"
+                    ],
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "lastname": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string"
+                      },
+                      "username": {
+                        "type": "string"
+                      },
+                      "password": {
+                        "type": "string"
+                      },
+                      "countrycode": {
+                        "type": "string"
+                      },
+                      "mobile": {
+                        "type": "number"
+                      },
+                      "primaryUser": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "dob": {
+                        "type": "string"
+                      },
+                      "gender": {
+                        "type": "string"
+                      },
+                      "userType": {
+                        "type": "string"
+                      },
+                      "diabetic": {
+                        "type": "boolean"
+                      },
+                      "alcoholic": {
+                        "type": "boolean"
+                      },
+                      "isHeartPatient": {
+                        "type": "boolean"
+                      },
+                      "smoker": {
+                        "type": "boolean"
+                      },
+                      "symptoms": {
+                        "type": "string"
+                      },
+                      "linked": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "username": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "links": {
+                    "type": "object",
+                    "required": [
+                      "self",
+                      "next",
+                      "last"
+                    ],
+                    "properties": {
+                      "self": {
+                        "type": "string"
+                      },
+                      "next": {
+                        "type": "string"
+                      },
+                      "last": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "meta": {
+                    "type": "object",
+                    "properties": {
+                      "creationDate": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "modificationDate": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    }
+                  },
+                  "relationships": {},
+                  "included": {}
+                }
+              }
+            ]
+          }
+        }
+      },
+      "HealthResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "type",
+                "id",
+                "attributes"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "attributes": {
+                  "type": "object",
+                  "properties": {
+                    "ecg": {
+                      "type": "array",
+                      "items": {
+                        "required": [
+                          "lead1",
+                          "createdTs"
+                        ],
+                        "properties": {
+                          "hr": {
+                            "type": "number"
+                          },
+                          "pr": {
+                            "type": "number"
+                          },
+                          "qt": {
+                            "type": "number"
+                          },
+                          "symptoms": {
+                            "type": "string"
+                          },
+                          "qtc": {
+                            "type": "number"
+                          },
+                          "qrs": {
+                            "type": "number"
+                          },
+                          "nn150": {
+                            "type": "number"
+                          },
+                          "nn2k": {
+                            "type": "number"
+                          },
+                          "minHr": {
+                            "type": "number"
+                          },
+                          "maxHr": {
+                            "type": "number"
+                          },
+                          "lead1": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          },
+                          "lead2": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          },
+                          "lead3": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          },
+                          "v1": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          },
+                          "v2": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          },
+                          "v3": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          },
+                          "v4": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          },
+                          "v5": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          },
+                          "v6": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          },
+                          "avL": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          },
+                          "avF": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          },
+                          "avR": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          },
+                          "longLead": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          },
+                          "rrInterval": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          },
+                          "arrHr": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          },
+                          "mcodeLead1": {
+                            "type": "string"
+                          },
+                          "mcodeLead2": {
+                            "type": "string"
+                          },
+                          "mcodeLead3": {
+                            "type": "string"
+                          },
+                          "mcodeLeadavR": {
+                            "type": "string"
+                          },
+                          "mcodeLeadavL": {
+                            "type": "string"
+                          },
+                          "mcodeLeadavF": {
+                            "type": "string"
+                          },
+                          "mcodeLeadv1": {
+                            "type": "string"
+                          },
+                          "mcodeLeadv2": {
+                            "type": "string"
+                          },
+                          "mcodeLeadv3": {
+                            "type": "string"
+                          },
+                          "mcodeLeadv4": {
+                            "type": "string"
+                          },
+                          "mcodeLeadv5": {
+                            "type": "string"
+                          },
+                          "mcodeLeadv6": {
+                            "type": "string"
+                          },
+                          "batteryLevel": {
+                            "type": "number"
+                          },
+                          "deviceId": {
+                            "type": "string"
+                          },
+                          "leadCount": {
+                            "type": "number"
+                          },
+                          "lat": {
+                            "type": "string"
+                          },
+                          "long": {
+                            "type": "string"
+                          },
+                          "pdfurl": {
+                            "type": "string"
+                          },
+                          "deviceType": {
+                            "type": "string"
+                          },
+                          "fullReport": {
+                            "type": "boolean"
+                          },
+                          "createdTs": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                    "firmwareVersion": {
+                      "type": "string"
+                    },
+                    "appVersion": {
+                      "type": "string"
+                    },
+                    "phoneModel": {
+                      "type": "string"
+                    },
+                    "osVersion": {
+                      "type": "string"
+                    }
+                        }
+                      }
+                    },
+                    "bp": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "diastolic": {
+                            "type": "number"
+                          },
+                          "systolic": {
+                            "type": "number"
+                          },
+                          "createdTs": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      }
+                    },
+                    "sugar": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "value": {
+                            "type": "number"
+                          },
+                          "createdTs": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      }
+                    },
+                    "cholesterol": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "ldl": {
+                            "type": "number"
+                          },
+                          "hdl": {
+                            "type": "number"
+                          },
+                          "tri": {
+                            "type": "number"
+                          },
+                          "createdTs": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      }
+                    },
+                    "stress": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "hr": {
+                            "type": "number"
+                          },
+                          "mrr": {
+                            "type": "number"
+                          },
+                          "sdnn": {
+                            "type": "number"
+                          },
+                          "rmssd": {
+                            "type": "number"
+                          },
+                          "symptoms": {
+                            "type": "string"
+                          },
+                          "pr": {
+                            "type": "number"
+                          },
+                          "qt": {
+                            "type": "number"
+                          },
+                          "minHr": {
+                            "type": "number"
+                          },
+                          "maxHr": {
+                            "type": "number"
+                          },
+                          "qtc": {
+                            "type": "number"
+                          },
+                          "qrs": {
+                            "type": "number"
+                          },
+                          "pnn50": {
+                            "type": "number"
+                          },
+                          "nn150": {
+                            "type": "number"
+                          },
+                          "nn2k": {
+                            "type": "number"
+                          },
+                          "deviceType": {
+                            "type": "string"
+                          },
+                          "fullReport": {
+                            "type": "boolean"
+                          },
+                          "value": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          },
+                          "rrInterval": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          },
+                          "arrHr": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          },
+                          "createdTs": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                    "firmwareVersion": {
+                      "type": "string"
+                    },
+                    "appVersion": {
+                      "type": "string"
+                    },
+                    "phoneModel": {
+                      "type": "string"
+                    },
+                    "osVersion": {
+                      "type": "string"
+                    }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "meta": {
+            "type": "object",
+            "properties": {
+              "username": {
+                "type": "string"
+              }
+            }
+          },
+          "include": {
+            "type": "object"
+          }
+        }
+      },
+      "accountUpdateDocument": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "title": "accountResource",
+            "type": "object",
+            "allOf": [
+              {
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "accountPrimary",
+                      "accountSecondary"
+                    ]
+                  },
+                  "id": {
+                    "type": "string",
+                    "description": "Unique identifier"
+                  },
+                  "attributes": {
+                    "type": "object",
+                    "required": [
+                      "name",
+                      "type"
+                    ],
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "lastname": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string"
+                      },
+                      "countrycode": {
+                        "type": "string"
+                      },
+                      "mobile": {
+                        "type": "number"
+                      },
+                      "bloodGroup": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "dob": {
+                        "type": "string"
+                      },
+                      "profilPic": {
+                        "type": "string"
+                      },
+                      "gender": {
+                        "type": "string"
+                      },
+                      "symptoms": {
+                        "type": "string"
+                      },
+                      "height": {
+                        "type": "number"
+                      },
+                      "weight": {
+                        "type": "number"
+                      },
+                      "userType": {
+                        "type": "string"
+                      },
+                      "smoker": {
+                        "type": "boolean"
+                      },
+                      "alcoholic": {
+                        "type": "boolean"
+                      },
+                      "isHeartPatient": {
+                        "type": "boolean"
+                      },
+                      "diabetic": {
+                        "type": "boolean"
+                      }
+                    }
+                  },
+                  "links": {
+                    "type": "object",
+                    "required": [
+                      "self",
+                      "next",
+                      "last"
+                    ],
+                    "properties": {
+                      "self": {
+                        "type": "string"
+                      },
+                      "next": {
+                        "type": "string"
+                      },
+                      "last": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "meta": {
+                    "type": "object",
+                    "properties": {
+                      "creationDate": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "modificationDate": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    }
+                  },
+                  "relationships": {},
+                  "included": {}
+                }
+              }
+            ]
+          }
+        }
+      },
+      "linkDocument": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "title": "accountResource",
+            "type": "object",
+            "allOf": [
+              {
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "string",
+                    "description": "Unique identifier"
+                  },
+                  "attributes": {
+                    "type": "object",
+                    "required": [
+                      "name",
+                      "username"
+                    ],
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "username": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "linkShareDocument": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "title": "accountResource",
+            "type": "object",
+            "allOf": [
+              {
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "id": {
+                    "type": "string",
+                    "description": "Unique identifier"
+                  },
+                  "attributes": {
+                    "type": "object",
+                    "required": [
+                      "linkKey"
+                    ],
+                    "properties": {
+                      "linkKey": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        }
+      },
+      "subscriptionDocument": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "title": "subscriptionResource",
+            "type": "object",
+            "allOf": [
+              {
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "prime",
+                      "normal"
+                    ]
+                  },
+                  "id": {
+                    "type": "string",
+                    "description": "Unique identifier"
+                  },
+                  "attributes": {
+                    "type": "object",
+                    "required": [
+                      "name"
+                    ],
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "username": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string"
+                      },
+                      "subId": {
+                        "type": "string"
+                      },
+                      "ecgCounts": {
+                        "type": "number"
+                      },
+                      "validUpto": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "usersAllow": {
+                        "type": "number"
+                      }
+                    }
+                  },
+                  "links": {
+                    "type": "object",
+                    "required": [
+                      "self",
+                      "next",
+                      "last"
+                    ],
+                    "properties": {
+                      "self": {
+                        "type": "string"
+                      },
+                      "next": {
+                        "type": "string"
+                      },
+                      "last": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "meta": {
+                    "type": "object",
+                    "properties": {
+                      "creationDate": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "modificationDate": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    }
+                  },
+                  "relationships": {},
+                  "included": {}
+                }
+              }
+            ]
+          }
+        }
+      },
+      "subscriptionUpdateDocument": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "title": "subscriptionsResource",
+            "type": "object",
+            "allOf": [
+              {
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "prime",
+                      "normal"
+                    ]
+                  },
+                  "id": {
+                    "type": "string",
+                    "description": "Unique identifier"
+                  },
+                  "attributes": {
+                    "type": "object",
+                    "required": [
+                      "name"
+                    ],
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "username": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string"
+                      },
+                      "subId": {
+                        "type": "string"
+                      },
+                      "ecgCounts": {
+                        "type": "number"
+                      },
+                      "validUpto": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "usersAllow": {
+                        "type": "number"
+                      }
+                    }
+                  },
+                  "links": {
+                    "type": "object",
+                    "required": [
+                      "self",
+                      "next",
+                      "last"
+                    ],
+                    "properties": {
+                      "self": {
+                        "type": "string"
+                      },
+                      "next": {
+                        "type": "string"
+                      },
+                      "last": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "meta": {
+                    "type": "object",
+                    "properties": {
+                      "creationDate": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "modificationDate": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    }
+                  },
+                  "relationships": {},
+                  "included": {}
+                }
+              }
+            ]
+          }
+        }
+      },
+      "pricingPlan": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "type",
+                "id",
+                "attributes"
+              ],
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "attributes": {
+                  "type": "object",
+                  "properties": {
+                    "plantitle": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "cost": {
+                      "type": "number"
+                    },
+                    "ecgCounts": {
+                      "type": "number"
+                    },
+                    "usersAllow": {
+                      "type": "number"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "meta": {
+            "type": "object"
+          },
+          "include": {
+            "type": "object"
+          }
+        }
+      },
+      "masterAccountsDocument": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "title": "accountResource",
+            "type": "object",
+            "allOf": [
+              {
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "Corporate"
+                    ]
+                  },
+                  "id": {
+                    "type": "string",
+                    "description": "Unique identifier"
+                  },
+                  "attributes": {
+                    "type": "object",
+                    "required": [
+                      "name",
+                      "type",
+                      "username",
+                      "password"
+                    ],
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string"
+                      },
+                      "username": {
+                        "type": "string"
+                      },
+                      "password": {
+                        "type": "string"
+                      },
+                      "mobile": {
+                        "type": "number"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "address": {
+                        "type": "string"
+                      },
+                      "linkedUsers": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "username": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "state": {
+                              "type": "number"
+                            }
+                          }
+                        }
+                      },
+                      "subscribers": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "username": {
+                              "type": "string"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "state": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "links": {
+                    "type": "object",
+                    "required": [
+                      "self",
+                      "next",
+                      "last"
+                    ],
+                    "properties": {
+                      "self": {
+                        "type": "string"
+                      },
+                      "next": {
+                        "type": "string"
+                      },
+                      "last": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "meta": {
+                    "type": "object",
+                    "properties": {
+                      "creationDate": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "modificationDate": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    }
+                  },
+                  "relationships": {},
+                  "included": {}
+                }
+              }
+            ]
+          }
+        }
+      },
+      "masterAccountUpdateDocument": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "title": "accountResource",
+            "type": "object",
+            "allOf": [
+              {
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "Cooprate"
+                    ]
+                  },
+                  "id": {
+                    "type": "string",
+                    "description": "Unique identifier"
+                  },
+                  "attributes": {
+                    "type": "object",
+                    "required": [
+                      "name",
+                      "type"
+                    ],
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string"
+                      },
+                      "mobile": {
+                        "type": "number"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "address": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "links": {
+                    "type": "object",
+                    "required": [
+                      "self",
+                      "next",
+                      "last"
+                    ],
+                    "properties": {
+                      "self": {
+                        "type": "string"
+                      },
+                      "next": {
+                        "type": "string"
+                      },
+                      "last": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "meta": {
+                    "type": "object",
+                    "properties": {
+                      "creationDate": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "modificationDate": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    }
+                  },
+                  "relationships": {},
+                  "included": {}
+                }
+              }
+            ]
+          }
+        }
+      },
+      "pricingPlanMaster": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "type",
+                "id",
+                "attributes"
+              ],
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string"
+                },
+                "attributes": {
+                  "type": "object",
+                  "properties": {
+                    "plantitle": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    },
+                    "cost": {
+                      "type": "integer"
+                    },
+                    "keyCounts": {
+                      "type": "integer"
+                    },
+                    "hitsAllowed": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "meta": {
+            "type": "object"
+          },
+          "include": {
+            "type": "object"
+          }
+        }
+      },
+      "passwordBody": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "subscriptionMasterDocument": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "title": "subscriptionResource",
+            "type": "object",
+            "allOf": [
+              {
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "master"
+                    ]
+                  },
+                  "id": {
+                    "type": "string",
+                    "description": "Unique identifier"
+                  },
+                  "attributes": {
+                    "type": "object",
+                    "required": [
+                      "name"
+                    ],
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "username": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string"
+                      },
+                      "subId": {
+                        "type": "string"
+                      },
+                      "hitsAllowed": {
+                        "type": "number"
+                      },
+                      "validUpto": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "keyCounts": {
+                        "type": "object",
+                        "properties": {
+                          "count": {
+                            "type": "number"
+                          },
+                          "portal": {
+                            "type": "boolean"
+                          },
+                          "creationDate": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      },
+                      "keys": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "shareKey": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "key": {
+                              "type": "string"
+                            },
+                            "creationDate": {
+                              "type": "string",
+                              "format": "date-time"
+                            },
+                            "number": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "links": {
+                    "type": "object",
+                    "required": [
+                      "self",
+                      "next",
+                      "last"
+                    ],
+                    "properties": {
+                      "self": {
+                        "type": "string"
+                      },
+                      "next": {
+                        "type": "string"
+                      },
+                      "last": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "meta": {
+                    "type": "object",
+                    "properties": {
+                      "creationDate": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "modificationDate": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    }
+                  },
+                  "relationships": {},
+                  "included": {}
+                }
+              }
+            ]
+          }
+        }
+      },
+      "subscriptionMasterUpdateDocument": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "title": "subscriptionsResource",
+            "type": "object",
+            "allOf": [
+              {
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "master"
+                    ]
+                  },
+                  "id": {
+                    "type": "string",
+                    "description": "Unique identifier"
+                  },
+                  "attributes": {
+                    "type": "object",
+                    "required": [
+                      "name"
+                    ],
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "username": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string"
+                      },
+                      "subId": {
+                        "type": "string"
+                      },
+                      "keyCounts": {
+                        "type": "object",
+                        "properties": {
+                          "count": {
+                            "type": "number"
+                          },
+                          "portal": {
+                            "type": "boolean"
+                          },
+                          "creationDate": {
+                            "type": "string",
+                            "format": "date-time"
+                          }
+                        }
+                      },
+                      "hitsAllowed": {
+                        "type": "number"
+                      },
+                      "validUpto": {
+                        "type": "string",
+                        "format": "date"
+                      },
+                      "keys": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "shareKey": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "key": {
+                              "type": "string"
+                            },
+                            "creationDate": {
+                              "type": "string",
+                              "format": "date-time"
+                            },
+                            "number": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "links": {
+                    "type": "object",
+                    "required": [
+                      "self",
+                      "next",
+                      "last"
+                    ],
+                    "properties": {
+                      "self": {
+                        "type": "string"
+                      },
+                      "next": {
+                        "type": "string"
+                      },
+                      "last": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "meta": {
+                    "type": "object",
+                    "properties": {
+                      "creationDate": {
+                        "type": "string",
+                        "format": "date-time"
+                      },
+                      "modificationDate": {
+                        "type": "string",
+                        "format": "date-time"
+                      }
+                    }
+                  },
+                  "relationships": {},
+                  "included": {}
+                }
+              }
+            ]
+          }
+        }
+      },
+      "shareDocument": {
+        "title": "Share Object",
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "number": {
+            "type": "string"
+          }
+        }
+      },
+      "otpsend": {
+        "type": "object",
+        "properties": {
+          "otp": {
+            "type": "number"
+          }
+        }
+      },
+      "updatesym": {
+        "type": "object",
+        "properties": {
+          "symptoms": {
+            "type": "string"
+          }
+        }
+      },
+      "versionbody": {
+        "type": "object",
+        "properties": {
+          "sanketLifeAndroid": {
+            "type": "string"
+          },
+          "sanketLifeIos": {
+            "type": "string"
+          },
+          "sanketDocAndroid": {
+            "type": "string"
+          },
+          "sanketDocIos": {
+            "type": "string"
+          },
+          "banner": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          }
+        }
+      },
+      "errorDocument": {
+        "title": "error",
+        "type": "object",
+        "properties": {
+          "errors": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "type": "string"
+                },
+                "code": {
+                  "type": "string"
+                },
+                "detail": {
+                  "type": "string"
+                },
+                "source": {
+                  "type": "object",
+                  "properties": {
+                    "pointer": {
+                      "type": "string"
+                    },
+                    "parameter": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "meta": {
+                  "type": "object"
+                }
+              },
+              "required": [
+                "title",
+                "code",
+                "detail"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }

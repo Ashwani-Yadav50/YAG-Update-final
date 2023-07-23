@@ -1,0 +1,504 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This microservice documentation is for processing the data during report generation process.",
+        "version": "0.0.1",
+        "title": "Python Conversion Microservice"
+    },
+    "host": "0.0.0.0:80",
+    "basePath": "/",
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/ecg": {
+            "get": {
+                "x-swagger-router-controller": "main",
+                "tags": [
+                    "ECG"
+                ],
+                "description": "Testing to check the server availability",
+                "operationId": "new_users_route_get",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "post": {
+                "x-swagger-router-controller": "main",
+                "tags": [
+                    "ECG"
+                ],
+                "description": "Receives the ECG data received and then returns the processed ECG data application while syncing the same to the man server",
+                "operationId": "new_users_route",
+                "responses": {
+                    "200": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/ECGResponse"
+                        }
+                    },
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/ECGResponse"
+                        }
+                    },
+                    "203": {
+                        "description": "Non Authoritative Information",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorResponse"
+                        }
+                    },
+                    "204": {
+                        "description": "No Content Found",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Unauthorize",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorize",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorResponse"
+                        }
+                    },
+                    "408": {
+                        "description": "Timeout",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorResponse2"
+                        }
+                    },
+                    "501": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorResponse2"
+                        }
+                    }
+                }
+            }
+        },
+        "/api": {
+            "get": {
+                "x-swagger-router-controller": "main",
+                "tags": [
+                    "ECG"
+                ],
+                "description": "Testing to check the server availability",
+                "operationId": "users_route_get",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "post": {
+                "x-swagger-router-controller": "main",
+                "tags": [
+                    "ECG"
+                ],
+                "description": "Receives the ECG data received and then returns the processed (Extended) ECG data",
+                "operationId": "users_route",
+                "responses": {
+                    "200": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/ECGResponse"
+                        }
+                    },
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/ECGResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Unauthorize",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorize",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/aft": {
+            "get": {
+                "x-swagger-router-controller": "main",
+                "tags": [
+                    "HRV"
+                ],
+                "description": "Testing to check the server availability",
+                "operationId": "vm_route_get",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    }
+                }
+            },
+            "post": {
+                "x-swagger-router-controller": "main",
+                "tags": [
+                    "HRV"
+                ],
+                "description": "Receives the ECG data received and then returns the processed ECG data",
+                "operationId": "vm_route",
+                "responses": {
+                    "200": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/StressResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Unauthorize",
+                        "schema": {
+                            "$ref": "#/definitions/StressErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/StressErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/swagger": {
+            "x-swagger-pipe": "swagger_raw"
+        }
+    },
+    "definitions": {
+        "ECGResponse": {
+            "type": "object",
+            "properties": {
+                "username": {
+                    "type": "string"
+                },
+                "hr": {
+                    "type": "number"
+                },
+                "pr": {
+                    "type": "number"
+                },
+                "symptoms": {
+                    "type": "string"
+                },
+                "qt": {
+                    "type": "number"
+                },
+                "qtc": {
+                    "type": "number"
+                },
+                "qrs": {
+                    "type": "number"
+                },
+                "nn150": {
+                    "type": "number"
+                },
+                "nn2k": {
+                    "type": "number"
+                },
+                "minHr": {
+                    "type": "number"
+                },
+                "maxHr": {
+                    "type": "number"
+                },
+                "lead1": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    }
+                },
+                "lead2": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    }
+                },
+                "lead3": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    }
+                },
+                "v1": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    }
+                },
+                "v2": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    }
+                },
+                "v3": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    }
+                },
+                "v4": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    }
+                },
+                "v5": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    }
+                },
+                "v6": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    }
+                },
+                "avL": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    }
+                },
+                "avF": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    }
+                },
+                "avR": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    }
+                },
+                "longLead": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    }
+                },
+                "rrInterval": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    }
+                },
+                "arrHr": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    }
+                },
+                "batteryLevel": {
+                    "type": "number"
+                },
+                "deviceId": {
+                    "type": "string"
+                },
+                "leadCount": {
+                    "type": "number"
+                },
+                "lat": {
+                    "type": "string"
+                },
+                "long": {
+                    "type": "string"
+                },
+                "pdfurl": {
+                    "type": "string"
+                },
+                "deviceType": {
+                    "type": "string"
+                },
+                "fullReport": {
+                    "type": "boolean"
+                },
+                "createdTs": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "firmwareVersion": {
+                    "type": "string"
+                },
+                "appVersion": {
+                    "type": "string"
+                },
+                "phoneModel": {
+                    "type": "string"
+                },
+                "osVersion": {
+                    "type": "string"
+                },
+                "isConverted": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "StressResponse": {
+            "type": "object",
+            "properties": {
+                "RR_Interval": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    }
+                },
+                "HR_Interval": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    }
+                },
+                "meanRR": {
+                    "type": "number"
+                },
+                "SDNN": {
+                    "type": "number"
+                },
+                "minHR": {
+                    "type": "number"
+                },
+                "maxHR": {
+                    "type": "number"
+                },
+                "meanHR": {
+                    "type": "number"
+                },
+                "SDHR": {
+                    "type": "number"
+                },
+                "CoV": {
+                    "type": "number"
+                },
+                "SRR_Interval": {
+                    "type": "array",
+                    "items": {
+                        "type": "number"
+                    }
+                },
+                "SDSD": {
+                    "type": "number"
+                },
+                "RMSSD": {
+                    "type": "number"
+                },
+                "pNN20": {
+                    "type": "number"
+                },
+                "pNN50": {
+                    "type": "number"
+                },
+                "pNN150": {
+                    "type": "number"
+                },
+                "pNN2k": {
+                    "type": "number"
+                },
+                "high_rr": {
+                    "type": "number"
+                },
+                "low_rr": {
+                    "type": "number"
+                },
+                "high_hr": {
+                    "type": "number"
+                },
+                "low_hr": {
+                    "type": "number"
+                },
+                "VM_RRratio": {
+                    "type": "string"
+                },
+                "VM_HRratio": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "ErrorResponse": {
+            "title": "error",
+            "type": "object",
+            "properties": {
+                "response_code": {
+                    "type": "integer"
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "code": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "title",
+                            "code",
+                            "detail"
+                        ]
+                    }
+                }
+            }
+        },
+        "ErrorResponse2": {
+            "title": "error",
+            "type": "object",
+            "properties": {
+                "response_code": {
+                    "type": "integer"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "StressErrorResponse": {
+            "title": "error",
+            "type": "object",
+            "properties": {
+                "Error": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

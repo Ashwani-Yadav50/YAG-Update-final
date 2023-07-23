@@ -1,0 +1,3246 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Health Microservice deals with ECG, BP, Sugar, Stress and other Parameters",
+    "version": "0.0.1",
+    "title": "Health Microservice"
+  },
+  "host": "localhost:1000",
+  "basePath": "/api",
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json",
+    "multipart/form-data"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "securityDefinitions": {
+    "basicAuth": {
+      "type": "basic"
+    }
+  },
+  "paths": {
+    "/health/{username}": {
+      "x-swagger-router-controller": "healthController",
+      "get": {
+        "tags": [
+          "Health"
+        ],
+        "description": "Returns 'All Health' values to the caller",
+        "operationId": "getHealthByID",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "Return 'Health data' of a perticular user.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/HealthResponse"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/health/getdata": {
+      "x-swagger-router-controller": "healthController",
+      "get": {
+        "tags": [
+          "Health"
+        ],
+        "description": "Returns 'All Health' values to the caller",
+        "operationId": "getAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/HealthResponse"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/health/getecgdata": {
+      "x-swagger-router-controller": "ecgController",
+      "get": {
+        "tags": [
+          "ECG local"
+        ],
+        "description": "Returns 'All Health' values to the caller",
+        "operationId": "getallecg",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/HealthResponse"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/health/real/{username}/{deviceId}": {
+      "x-swagger-router-controller": "healthController",
+      "get": {
+        "tags": [
+          "Health"
+        ],
+        "description": "Returns 'All Health' values to the caller",
+        "operationId": "getallDatawithouttestingdata",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "Return 'Health data' of a perticular user.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "deviceId",
+            "in": "path",
+            "description": "Return 'Health data' of a perticular user.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/HealthResponse"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/health/ecg/{username}": {
+      "x-swagger-router-controller": "ecgController",
+      "get": {
+        "tags": [
+          "ECG"
+        ],
+        "description": "Returns 'ECG' to the user",
+        "operationId": "getEcgByID",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "The username of the person who want's ecg",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ECGResponse"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ECG"
+        ],
+        "description": "Returns 'ECG' to the user",
+        "operationId": "createEcg",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "The username of the person who want's ecg",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "ecgBody",
+            "in": "body",
+            "description": "The username of the person who want's ecg",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ECGResponse"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/ECGResponse"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/health/ecgRaw/{username}": {
+      "x-swagger-router-controller": "rawecg",
+      "post": {
+        "tags": [
+          "ECG"
+        ],
+        "description": "Returns 'ECG' to the user",
+        "operationId": "createRawEcg",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "The username of the person who want's ecg",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "ecgBody",
+            "in": "body",
+            "description": "The username of the person who want's ecg",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ECGResponse"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/ECGResponse"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/health/ecg/{username}/{createdTs}": {
+      "x-swagger-router-controller": "ecgController",
+      "delete": {
+        "tags": [
+          "ECG"
+        ],
+        "operationId": "deleteECG",
+        "description": "Delete user ECG value",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "The username of the person who want's ecg",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "createdTs",
+            "in": "path",
+            "description": "ECG captured time",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ECGResponse"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/health/ecg/{username}/{start}/{end}": {
+      "x-swagger-router-controller": "ecgController",
+      "get": {
+        "tags": [
+          "ECG"
+        ],
+        "operationId": "getEcgByDate",
+        "description": "Delete user ECG value",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "The username of the person who want's ecg",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "start",
+            "in": "path",
+            "description": "ECG captured time",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "end",
+            "in": "path",
+            "description": "ECG captured time",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ECGResponse"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/health/rawecg/{username}/{start}/{end}": {
+      "x-swagger-router-controller": "ecgController",
+      "get": {
+        "tags": [
+          "Raw ECG"
+        ],
+        "operationId": "getEcgByUsernamePagination",
+        "description": "Delete user ECG value",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "The username of the person who want's ecg",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "start",
+            "in": "path",
+            "description": "ECG captured time",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "end",
+            "in": "path",
+            "description": "ECG captured time",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ECGResponse"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/get/getrawecg/{ecgid}": {
+      "x-swagger-router-controller": "ecgController",
+      "get": {
+        "tags": [
+          "Raw ECG"
+        ],
+        "operationId": "getRawEcgByecgid",
+        "description": "Delete user ECG value",
+        "parameters": [
+          {
+            "name": "ecgid",
+            "in": "path",
+            "description": "The username of the person who want's ecg",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ECGResponse"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/health/ecg/device/{deviceId}/{start}/{end}": {
+      "x-swagger-router-controller": "ecgController",
+      "get": {
+        "tags": [
+          "ECG"
+        ],
+        "operationId": "getEcgByDevice",
+        "description": "Delete user ECG value",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "description": "The username of the person who want's ecg",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "start",
+            "in": "path",
+            "description": "ECG captured time",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "end",
+            "in": "path",
+            "description": "ECG captured time",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ECGResponse"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/health/ecg/lab/devicedata/{deviceId}/{index}": {
+      "x-swagger-router-controller": "ecgController",
+      "get": {
+        "tags": [
+          "ECG"
+        ],
+        "operationId": "getEcgByDeviceIdPagination",
+        "description": "Delete user ECG value",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "description": "The username of the person who want's ecg",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "index",
+            "in": "path",
+            "description": "ECG captured time",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ECGResponse"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/get/ecg/{ecgid}": {
+      "x-swagger-router-controller": "ecgController",
+      "get": {
+        "tags": [
+          "ECG"
+        ],
+        "operationId": "getEcgByecgid",
+        "description": "Delete user ECG value",
+        "parameters": [
+          {
+            "name": "ecgid",
+            "in": "path",
+            "description": "The username of the person who want's ecg",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ECGResponse"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/ecg/updatesymptom/{ecgid}": {
+      "x-swagger-router-controller": "ecgController",
+      "put": {
+        "tags": [
+          "ECG"
+        ],
+        "operationId": "updatesymptom",
+        "description": "Delete user ECG value",
+        "parameters": [
+          {
+            "name": "ecgid",
+            "in": "path",
+            "description": "The username of the person who want's ecg",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "symbody",
+            "in": "body",
+            "description": "The username of the person who want's ecg",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/symbody"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ECGResponse"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/health/sugar/{username}": {
+      "x-swagger-router-controller": "sugarController",
+      "get": {
+        "tags": [
+          "Sugar"
+        ],
+        "description": "Returns 'Sugar Value' to the caller",
+        "operationId": "getSugarByID",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "The name of the person to whom to say hello",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SugarResponse"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Sugar"
+        ],
+        "description": "Returns 'Sugar Value' to the caller",
+        "operationId": "createsugar",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "The name of the person to whom to say hello",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "SugarBody",
+            "in": "body",
+            "description": "The username of the person who want's ecg",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SugarResponse"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/SugarResponse"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/health/sugar/{username}/{createdTs}": {
+      "x-swagger-router-controller": "sugarController",
+      "delete": {
+        "tags": [
+          "Sugar"
+        ],
+        "operationId": "deleteSugar",
+        "description": "Delete user ECG value",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "The username of the person who want's ecg",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "createdTs",
+            "in": "path",
+            "description": "ECG captured time",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/SugarResponse"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/health/bp/{username}": {
+      "x-swagger-router-controller": "bpController",
+      "get": {
+        "tags": [
+          "BP"
+        ],
+        "description": "Returns 'Bp values' to the caller",
+        "operationId": "getBpByID",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "The name of the person to whom to say hello",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/BpResponse"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "BP"
+        ],
+        "description": "Returns 'Bp values' to the caller",
+        "operationId": "createbp",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "The name of the person to whom to say hello",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "bpBody",
+            "in": "body",
+            "description": "The username of the person who want's ecg",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BpResponse"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/BpResponse"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/health/bp/{username}/{createdTs}": {
+      "x-swagger-router-controller": "bpController",
+      "delete": {
+        "tags": [
+          "BP"
+        ],
+        "operationId": "deleteBP",
+        "description": "Delete user BP value",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "The username of the person who want's ecg",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "createdTs",
+            "in": "path",
+            "description": "ECG captured time",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/BpResponse"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/health/cholesterol/{username}": {
+      "x-swagger-router-controller": "cholesterolController",
+      "get": {
+        "tags": [
+          "Cholesterol"
+        ],
+        "description": "Returns 'cholesterol Value' to the caller",
+        "operationId": "getCholesterolByID",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "The name of the person to whom to say hello",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CholesterolResponse"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Cholesterol"
+        ],
+        "description": "Returns 'cholesterol Value' to the caller",
+        "operationId": "createCholesterol",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "The name of the person to whom to say hello",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "cholesterolBody",
+            "in": "body",
+            "description": "The username of the person who want's ecg",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CholesterolResponse"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CholesterolResponse"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/health/cholesterol/{username}/{createdTs}": {
+      "x-swagger-router-controller": "cholesterolController",
+      "delete": {
+        "tags": [
+          "Cholesterol"
+        ],
+        "operationId": "deleteCholesterol",
+        "description": "Delete user ECG value",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "The username of the person who want's ecg",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "createdTs",
+            "in": "path",
+            "description": "ECG captured time",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CholesterolResponse"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/health/stress/{username}": {
+      "x-swagger-router-controller": "stressController",
+      "get": {
+        "tags": [
+          "Stress"
+        ],
+        "description": "Returns 'Hello' to the caller",
+        "operationId": "getStressByID",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "The name of the person to whom to say hello",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/StressResponse"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Stress"
+        ],
+        "description": "Returns 'Hello' to the caller",
+        "operationId": "createstress",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "The name of the person to whom to say hello",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "stressBody",
+            "in": "body",
+            "description": "The username of the person who want's ecg",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/StressResponse"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/StressResponse"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/health/stress/{username}/{createdTs}": {
+      "x-swagger-router-controller": "stressController",
+      "delete": {
+        "tags": [
+          "Stress"
+        ],
+        "operationId": "deleteStress",
+        "description": "Delete user ECG value",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "The username of the person who want's ecg",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "createdTs",
+            "in": "path",
+            "description": "ECG captured time",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/StressResponse"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/health/stress/{username}/{start}/{end}": {
+      "x-swagger-router-controller": "stressController",
+      "get": {
+        "tags": [
+          "Stress"
+        ],
+        "operationId": "getStressByDate",
+        "description": "Delete user ECG value",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "The username of the person who want's ecg",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "start",
+            "in": "path",
+            "description": "ECG captured time",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "end",
+            "in": "path",
+            "description": "ECG captured time",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/StressResponse"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/health/stress/device/{deviceId}/{start}/{end}": {
+      "x-swagger-router-controller": "stressController",
+      "get": {
+        "tags": [
+          "Stress"
+        ],
+        "operationId": "getStressByDevice",
+        "description": "Delete user ECG value",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "description": "The username of the person who want's ecg",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "start",
+            "in": "path",
+            "description": "ECG captured time",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "end",
+            "in": "path",
+            "description": "ECG captured time",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/StressResponse"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/get/stress/{stressid}": {
+      "x-swagger-router-controller": "stressController",
+      "get": {
+        "tags": [
+          "Stress"
+        ],
+        "operationId": "getStressBystressid",
+        "description": "Delete user ECG value",
+        "parameters": [
+          {
+            "name": "stressid",
+            "in": "path",
+            "description": "The username of the person who want's ecg",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/StressResponse"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/stress/updatesymptom/{stressid}": {
+      "x-swagger-router-controller": "stressController",
+      "put": {
+        "tags": [
+          "Stress"
+        ],
+        "operationId": "updatesymptomstress",
+        "description": "Delete user ECG value",
+        "parameters": [
+          {
+            "name": "stressid",
+            "in": "path",
+            "description": "The username of the person who want's ecg",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "symbody",
+            "in": "body",
+            "description": "The username of the person who want's ecg",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/symbody"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ECGResponse"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/sdk/upload/{deviceId}/{patientId}/{labusername}": {
+      "x-swagger-router-controller": "labsdk",
+      "post": {
+        "tags": [
+          "Lab SDK"
+        ],
+        "operationId": "uploadpdf",
+        "description": "Upload the pdf to server with patient id",
+        "parameters": [
+          {
+            "name": "ecgpdf",
+            "in": "formData",
+            "description": "The username of the person who want's ecg",
+            "required": true,
+            "type": "file"
+          },
+          {
+            "name": "deviceId",
+            "in": "path",
+            "description": "deviceId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "patientId",
+            "in": "path",
+            "description": "patient Id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "labusername",
+            "in": "path",
+            "description": "labusername",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ECGResponse"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/sdk/fetch/{deviceId}/{patientId}": {
+      "x-swagger-router-controller": "labsdk",
+      "get": {
+        "tags": [
+          "Lab SDK"
+        ],
+        "operationId": "fetchBlob",
+        "description": "Upload the pdf to server with patient id",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "description": "deviceId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "patientId",
+            "in": "path",
+            "description": "patient Id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ECGResponse"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/sdk/fetchlab/{deviceId}/{labusername}": {
+      "x-swagger-router-controller": "labsdk",
+      "get": {
+        "tags": [
+          "Lab SDK"
+        ],
+        "operationId": "fetchreport",
+        "description": "Upload the pdf to server with patient id",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "description": "deviceId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "labusername",
+            "in": "path",
+            "description": "patient Id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ECGResponse"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/sdk/delete/blob": {
+      "x-swagger-router-controller": "labsdk",
+      "post": {
+        "tags": [
+          "Lab SDK"
+        ],
+        "operationId": "deleteBlob",
+        "description": "Upload the pdf to server with patient id",
+        "parameters": [
+          {
+            "name": "blobUrl",
+            "in": "body",
+            "description": "deviceId",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/blob"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ECGResponse"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse"
+            }
+          }
+        }
+      }
+    },
+    "/swagger": {
+      "x-swagger-pipe": "swagger_raw"
+    }
+  },
+  "definitions": {
+    "HealthResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "type",
+              "id",
+              "attributes"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              },
+              "attributes": {
+                "type": "object",
+                "properties": {
+                  "ecg": {
+                    "type": "array",
+                    "items": {
+                      "required": [
+                        "lead1",
+                        "createdTs"
+                      ],
+                      "properties": {
+                        "hr": {
+                          "type": "number"
+                        },
+                        "pr": {
+                          "type": "number"
+                        },
+                        "qt": {
+                          "type": "number"
+                        },
+                        "qtc": {
+                          "type": "number"
+                        },
+                        "symptoms": {
+                          "type": "string"
+                        },
+                        "vmRatio": {
+                          "type": "string"
+                        },
+                        "qrs": {
+                          "type": "number"
+                        },
+                        "nn150": {
+                          "type": "number"
+                        },
+                        "nn2k": {
+                          "type": "number"
+                        },
+                        "minHr": {
+                          "type": "number"
+                        },
+                        "maxHr": {
+                          "type": "number"
+                        },
+                        "lead1": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          }
+                        },
+                        "lead2": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          }
+                        },
+                        "lead3": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          }
+                        },
+                        "v1": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          }
+                        },
+                        "v2": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          }
+                        },
+                        "v3": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          }
+                        },
+                        "v4": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          }
+                        },
+                        "v5": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          }
+                        },
+                        "v6": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          }
+                        },
+                        "avL": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          }
+                        },
+                        "avF": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          }
+                        },
+                        "avR": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          }
+                        },
+                        "longLead": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          }
+                        },
+                        "rrInterval": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          }
+                        },
+                        "arrHr": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          }
+                        },
+                        "mcodeLead1": {
+                          "type": "string"
+                        },
+                        "mcodeLead2": {
+                          "type": "string"
+                        },
+                        "mcodeLead3": {
+                          "type": "string"
+                        },
+                        "mcodeLeadavR": {
+                          "type": "string"
+                        },
+                        "mcodeLeadavL": {
+                          "type": "string"
+                        },
+                        "mcodeLeadavF": {
+                          "type": "string"
+                        },
+                        "mcodeLeadv1": {
+                          "type": "string"
+                        },
+                        "mcodeLeadv2": {
+                          "type": "string"
+                        },
+                        "mcodeLeadv3": {
+                          "type": "string"
+                        },
+                        "mcodeLeadv4": {
+                          "type": "string"
+                        },
+                        "mcodeLeadv5": {
+                          "type": "string"
+                        },
+                        "mcodeLeadv6": {
+                          "type": "string"
+                        },
+                        "batteryLevel": {
+                          "type": "number"
+                        },
+                        "deviceId": {
+                          "type": "string"
+                        },
+                        "leadCount": {
+                          "type": "number"
+                        },
+                        "lat": {
+                          "type": "string"
+                        },
+                        "long": {
+                          "type": "string"
+                        },
+                        "pdfurl": {
+                          "type": "string"
+                        },
+                        "deviceType": {
+                          "type": "string"
+                        },
+                        "fullReport": {
+                          "type": "boolean"
+                        },
+                        "createdTs": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "firmwareVersion": {
+                          "type": "string"
+                        },
+                        "appVersion": {
+                          "type": "string"
+                        },
+                        "phoneModel": {
+                          "type": "string"
+                        },
+                        "osVersion": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  },
+                  "bp": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "diastolic": {
+                          "type": "number"
+                        },
+                        "systolic": {
+                          "type": "number"
+                        },
+                        "createdTs": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  },
+                  "sugar": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "type": "number"
+                        },
+                        "createdTs": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  },
+                  "cholesterol": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "ldl": {
+                          "type": "number"
+                        },
+                        "hdl": {
+                          "type": "number"
+                        },
+                        "tri": {
+                          "type": "number"
+                        },
+                        "createdTs": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  },
+                  "stress": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "hr": {
+                          "type": "number"
+                        },
+                        "mrr": {
+                          "type": "number"
+                        },
+                        "sdnn": {
+                          "type": "number"
+                        },
+                        "rmssd": {
+                          "type": "number"
+                        },
+                        "pr": {
+                          "type": "number"
+                        },
+                        "qt": {
+                          "type": "number"
+                        },
+                        "minHr": {
+                          "type": "number"
+                        },
+                        "maxHr": {
+                          "type": "number"
+                        },
+                        "vmRatio": {
+                          "type": "string"
+                        },
+                        "qtc": {
+                          "type": "number"
+                        },
+                        "qrs": {
+                          "type": "number"
+                        },
+                        "pnn50": {
+                          "type": "number"
+                        },
+                        "nn150": {
+                          "type": "number"
+                        },
+                        "nn2k": {
+                          "type": "number"
+                        },
+                        "symptoms": {
+                          "type": "string"
+                        },
+                        "lat": {
+                          "type": "string"
+                        },
+                        "long": {
+                          "type": "string"
+                        },
+                        "deviceType": {
+                          "type": "string"
+                        },
+                        "fullReport": {
+                          "type": "boolean"
+                        },
+                        "value": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          }
+                        },
+                        "rrInterval": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          }
+                        },
+                        "arrHr": {
+                          "type": "array",
+                          "items": {
+                            "type": "number"
+                          }
+                        },
+                        "createdTs": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "firmwareVersion": {
+                          "type": "string"
+                        },
+                        "appVersion": {
+                          "type": "string"
+                        },
+                        "phoneModel": {
+                          "type": "string"
+                        },
+                        "osVersion": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "meta": {
+          "type": "object",
+          "properties": {
+            "username": {
+              "type": "string"
+            }
+          }
+        },
+        "include": {
+          "type": "object"
+        }
+      }
+    },
+    "ECGResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "type",
+              "id"
+            ],
+            "properties": {
+              "type": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "attributes": {
+                "type": "object",
+                "required": [
+                  "lead1",
+                  "createdTs"
+                ],
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  },
+                  "hr": {
+                    "type": "number"
+                  },
+                  "pr": {
+                    "type": "number"
+                  },
+                  "symptoms": {
+                    "type": "string"
+                  },
+                  "qt": {
+                    "type": "number"
+                  },
+                  "qtc": {
+                    "type": "number"
+                  },
+                  "qrs": {
+                    "type": "number"
+                  },
+                  "nn150arr": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    }
+                  },
+                  "nn150": {
+                    "type": "number"
+                  },
+                  "nn2k": {
+                    "type": "number"
+                  },
+                  "nn2karr": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    }
+                  },
+                  "minHr": {
+                    "type": "number"
+                  },
+                  "maxHr": {
+                    "type": "number"
+                  },
+                  "lead1": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "lead2": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "lead3": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "v1": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "v2": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "v3": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "v4": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "v5": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "v6": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "avL": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "avF": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "avR": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "longLead": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "rrInterval": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "rrInt": {
+                    "type": "array",
+                    "items": {
+                      "type": "object"
+                    }
+                  },
+                  "arrHr": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "mcodeLead1": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "mcodeLead2": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "mcodeLead3": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "mcodeLeadavR": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "mcodeLeadavL": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "mcodeLeadavF": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "mcodeLeadv1": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "mcodeLeadv2": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "mcodeLeadv3": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "mcodeLeadv4": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "mcodeLeadv5": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "mcodeLeadv6": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "batteryLevel": {
+                    "type": "number"
+                  },
+                  "deviceId": {
+                    "type": "string"
+                  },
+                  "leadCount": {
+                    "type": "number"
+                  },
+                  "lat": {
+                    "type": "string"
+                  },
+                  "long": {
+                    "type": "string"
+                  },
+                  "pdfurl": {
+                    "type": "string"
+                  },
+                  "deviceType": {
+                    "type": "string"
+                  },
+                  "fullReport": {
+                    "type": "boolean"
+                  },
+                  "createdTs": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "firmwareVersion": {
+                    "type": "string"
+                  },
+                  "appVersion": {
+                    "type": "string"
+                  },
+                  "phoneModel": {
+                    "type": "string"
+                  },
+                  "osVersion": {
+                    "type": "string"
+                  },
+                  "isConverted": {
+                    "type": "boolean"
+                  },
+                  "isFromPython": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "meta": {
+          "type": "object"
+        },
+        "include": {
+          "type": "object"
+        }
+      }
+    },
+    "BpResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "type",
+              "id",
+              "attributes"
+            ],
+            "properties": {
+              "type": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "attributes": {
+                "type": "object",
+                "properties": {
+                  "diastolic": {
+                    "type": "number"
+                  },
+                  "systolic": {
+                    "type": "number"
+                  },
+                  "createdTs": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "meta": {
+          "type": "object"
+        },
+        "include": {
+          "type": "object"
+        }
+      }
+    },
+    "SugarResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "type",
+              "id",
+              "attributes"
+            ],
+            "properties": {
+              "type": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "attributes": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "createdTs": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "meta": {
+          "type": "object"
+        },
+        "include": {
+          "type": "object"
+        }
+      }
+    },
+    "CholesterolResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "type",
+              "id",
+              "attributes"
+            ],
+            "properties": {
+              "type": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "attributes": {
+                "type": "object",
+                "properties": {
+                  "ldl": {
+                    "type": "number"
+                  },
+                  "hdl": {
+                    "type": "number"
+                  },
+                  "tri": {
+                    "type": "number"
+                  },
+                  "createdTs": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "meta": {
+          "type": "object"
+        },
+        "include": {
+          "type": "object"
+        }
+      }
+    },
+    "StressResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "type",
+              "id"
+            ],
+            "properties": {
+              "type": {
+                "type": "string"
+              },
+              "id": {
+                "type": "string"
+              },
+              "attributes": {
+                "type": "object",
+                "properties": {
+                  "hr": {
+                    "type": "number"
+                  },
+                  "mrr": {
+                    "type": "number"
+                  },
+                  "sdnn": {
+                    "type": "number"
+                  },
+                  "symptoms": {
+                    "type": "string"
+                  },
+                  "rmssd": {
+                    "type": "number"
+                  },
+                  "pr": {
+                    "type": "number"
+                  },
+                  "qt": {
+                    "type": "number"
+                  },
+                  "minHr": {
+                    "type": "number"
+                  },
+                  "maxHr": {
+                    "type": "number"
+                  },
+                  "qtc": {
+                    "type": "number"
+                  },
+                  "qrs": {
+                    "type": "number"
+                  },
+                  "pnn50": {
+                    "type": "number"
+                  },
+                  "nn150": {
+                    "type": "number"
+                  },
+                  "lat": {
+                    "type": "string"
+                  },
+                  "long": {
+                    "type": "string"
+                  },
+                  "vmRatio": {
+                    "type": "string"
+                  },
+                  "nn2k": {
+                    "type": "number"
+                  },
+                  "deviceType": {
+                    "type": "string"
+                  },
+                  "fullReport": {
+                    "type": "boolean"
+                  },
+                  "value": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "rrInterval": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "arrHr": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "createdTs": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "firmwareVersion": {
+                    "type": "string"
+                  },
+                  "appVersion": {
+                    "type": "string"
+                  },
+                  "phoneModel": {
+                    "type": "string"
+                  },
+                  "osVersion": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "meta": {
+          "type": "object"
+        },
+        "include": {
+          "type": "object"
+        }
+      }
+    },
+    "symbody": {
+      "type": "object",
+      "properties": {
+        "symptoms": {
+          "type": "string"
+        }
+      }
+    },
+    "blob": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        }
+      }
+    },
+    "ErrorResponse": {
+      "title": "error",
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "code": {
+                "type": "string"
+              },
+              "detail": {
+                "type": "string"
+              },
+              "source": {
+                "type": "object",
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  },
+                  "parameter": {
+                    "type": "string"
+                  }
+                }
+              },
+              "meta": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "title",
+              "code",
+              "detail"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

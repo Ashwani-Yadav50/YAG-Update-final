@@ -1,0 +1,2051 @@
+{
+
+    "swagger": "2.0",
+  
+    "info": {
+  
+      "version": "0.0.1",
+  
+      "title": "Subscriptions Microservice",
+  
+      "contact": {
+  
+        "email": "mail@agatsa.com"
+  
+      },
+  
+      "license": {
+  
+        "name": "Copyright Agatsa 2017. All rights reserved."
+  
+      }
+  
+    },
+  
+    "host": "localhost:3007",
+  
+    "basePath": "/api",
+  
+    "schemes": [
+  
+      "http"
+  
+    ],
+  
+    "consumes": [
+  
+      "application/json"
+  
+    ],
+  
+    "produces": [
+  
+      "application/json"
+  
+    ],
+  
+  
+  
+    "securityDefinitions": {
+  
+      "basicAuth": {
+  
+        "type": "basic",
+  
+        "description": "Http basic Authentication"
+  
+      }
+  
+    },
+  
+    "paths": {
+  
+      "/subscriptions": {
+  
+        "x-swagger-router-controller": "subscription",
+  
+        "get": {
+  
+          "tags": [
+  
+            "Subscriptions"
+  
+          ],
+  
+          "description": "Returns the list of all subscription available",
+  
+          "operationId": "getAll",
+  
+          "parameters": [
+  
+            
+  
+          ],
+  
+          "responses": {
+  
+            "200": {
+  
+              "description": "Success",
+  
+              "schema": {
+  
+                "$ref": "#/definitions/subscriptionDocument"
+  
+              }
+  
+            },
+  
+              "203": {
+  
+              "description": "Non Authoritative Information",
+  
+              "schema": {
+  
+                "$ref": "#/definitions/ErrorResponse"
+  
+              }
+  
+            },
+  
+            "204": {
+  
+              "description": "No Content Found",
+  
+              "schema": {
+  
+                "$ref": "#/definitions/ErrorResponse"
+  
+              }
+  
+            },
+  
+            "401": {
+  
+              "description": "Unauthorize",
+  
+              "schema": {
+  
+                "$ref": "#/definitions/ErrorResponse"
+  
+              }
+  
+            },
+  
+             "404": {
+  
+              "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+  
+              "schema": {
+  
+                "$ref": "#/definitions/ErrorResponse"
+  
+              }
+  
+            },
+  
+            "408": {
+  
+              "description": "Timeout",
+  
+              "schema": {
+  
+                "$ref": "#/definitions/ErrorResponse"
+  
+              }
+  
+            },
+  
+            "500": {
+  
+              "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+  
+              "schema": {
+  
+                "$ref": "#/definitions/ErrorResponse"
+  
+              }
+  
+            }
+  
+          }
+  
+        },
+  
+        "post": {
+  
+          "tags": [
+  
+            "Subscriptions"
+  
+          ],
+  
+          "description": "Creates a subscription",
+  
+          "operationId": "create",
+  
+          "parameters": [
+  
+            {
+  
+              "name": "subscriptions",
+  
+              "in": "body",
+  
+              "description": "User account document to be created",
+  
+              "required": true,
+  
+              "schema": {
+  
+                "$ref": "#/definitions/subscriptionDocument"
+  
+              }
+  
+            }
+  
+          ],
+  
+          "responses": {
+  
+            "201": {
+  
+              "description": "Created",
+  
+              "schema": {
+  
+                "$ref": "#/definitions/subscriptionDocument"
+  
+              }
+  
+            },
+  
+              "203": {
+  
+              "description": "Non Authoritative Information",
+  
+              "schema": {
+  
+                "$ref": "#/definitions/ErrorResponse"
+  
+              }
+  
+            },
+  
+            "204": {
+  
+              "description": "No Content Found",
+  
+              "schema": {
+  
+                "$ref": "#/definitions/ErrorResponse"
+  
+              }
+  
+            },
+  
+            "401": {
+  
+              "description": "Unauthorize",
+  
+              "schema": {
+  
+                "$ref": "#/definitions/ErrorResponse"
+  
+              }
+  
+            },
+  
+            "404": {
+  
+              "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+  
+              "schema": {
+  
+                "$ref": "#/definitions/ErrorResponse"
+  
+              }
+  
+            },
+  
+            "408": {
+  
+              "description": "Timeout",
+  
+              "schema": {
+  
+                "$ref": "#/definitions/ErrorResponse"
+  
+              }
+  
+            },
+  
+            "500": {
+  
+              "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+  
+              "schema": {
+  
+                "$ref":"#/definitions/ErrorResponse"
+  
+              }
+  
+            }
+  
+          }
+  
+        }
+  
+      },
+  
+      "/subscription/{username}": {
+  
+        "x-swagger-router-controller": "subscription",
+  
+        "get": {
+  
+          "tags": [
+  
+            "Subscriptions"
+  
+          ],
+  
+          "description": "Get a user acount object",
+  
+          "operationId": "getByID",
+  
+          "parameters": [         
+  
+            {
+  
+              "name": "username",
+  
+              "in": "path",
+  
+              "description": "User id",
+  
+              "required": true,
+  
+              "type": "string"
+  
+            }
+  
+          ],
+  
+          "responses": {
+  
+            "201": {
+  
+              "description": "Get account by userId",
+  
+              "schema": {
+  
+                "$ref": "#/definitions/subscriptionDocument"
+  
+              }
+  
+            },
+  
+            "500": {
+  
+              "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+  
+              "schema": {
+  
+                "$ref": "#/definitions/ErrorResponse"
+  
+              }
+  
+            }
+  
+          }
+  
+        },
+  
+        "put": {
+  
+          "tags": [
+  
+            "Subscriptions"
+  
+          ],
+  
+          "description": "Get a user acount object",
+  
+          "operationId": "updateByID",
+  
+          "parameters": [
+  
+            {
+  
+              "name": "username",
+  
+              "in": "path",
+  
+              "description": "User id",
+  
+              "required": true,
+  
+              "type": "string"
+  
+            },
+  
+            {
+  
+              "name": "updateSubscription",
+  
+              "in": "body",
+  
+              "description": "User subscription plan to be Updated",
+  
+              "required": true,
+  
+              "schema": {
+  
+                "$ref": "#/definitions/subscriptionUpdateDocument"
+  
+              }
+  
+            }
+  
+          ],
+  
+          "responses": {
+  
+            "201": {
+  
+              "description": "Get account by userId",
+  
+              "schema": {
+  
+                "$ref": "#/definitions/subscriptionDocument"
+  
+              }
+  
+            },
+  
+            "500": {
+  
+              "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+  
+              "schema": {
+  
+                "$ref": "#/definitions/ErrorResponse"
+  
+              }
+  
+            }
+  
+          }
+  
+        }
+  
+      },
+  
+       "/subscriptions/master": {
+  
+        "x-swagger-router-controller": "subscriptionMaster",
+  
+        "get": {
+  
+          "tags": [
+  
+            "Subscriptions"
+  
+          ],
+  
+          "description": "Returns the list of all subscription available",
+  
+          "operationId": "getAllMaster",
+  
+          "parameters": [
+  
+            
+  
+          ],
+  
+          "responses": {
+  
+            "200": {
+  
+              "description": "Success",
+  
+              "schema": {
+  
+                "$ref": "#/definitions/subscriptionMasterDocument"
+  
+              }
+  
+            },
+  
+              "203": {
+  
+              "description": "Non Authoritative Information",
+  
+              "schema": {
+  
+                "$ref": "#/definitions/ErrorResponse"
+  
+              }
+  
+            },
+  
+            "204": {
+  
+              "description": "No Content Found",
+  
+              "schema": {
+  
+                "$ref": "#/definitions/ErrorResponse"
+  
+              }
+  
+            },
+  
+            "401": {
+  
+              "description": "Unauthorize",
+  
+              "schema": {
+  
+                "$ref": "#/definitions/ErrorResponse"
+  
+              }
+  
+            },
+  
+             "404": {
+  
+              "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+  
+              "schema": {
+  
+                "$ref": "#/definitions/ErrorResponse"
+  
+              }
+  
+            },
+  
+            "408": {
+  
+              "description": "Timeout",
+  
+              "schema": {
+  
+                "$ref": "#/definitions/ErrorResponse"
+  
+              }
+  
+            },
+  
+            "500": {
+  
+              "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+  
+              "schema": {
+  
+                "$ref": "#/definitions/ErrorResponse"
+  
+              }
+  
+            }
+  
+          }
+  
+        },
+  
+        "post": {
+  
+          "tags": [
+  
+            "Subscriptions"
+  
+          ],
+  
+          "description": "Creates a subscription",
+  
+          "operationId": "createMaster",
+  
+          "parameters": [
+  
+            {
+  
+              "name": "subscriptions",
+  
+              "in": "body",
+  
+              "description": "User account document to be created",
+  
+              "required": true,
+  
+              "schema": {
+  
+                "$ref": "#/definitions/subscriptionMasterDocument"
+  
+              }
+  
+            }
+  
+          ],
+  
+          "responses": {
+  
+            "201": {
+  
+              "description": "Created",
+  
+              "schema": {
+  
+                "$ref": "#/definitions/subscriptionMasterDocument"
+  
+              }
+  
+            },
+  
+              "203": {
+  
+              "description": "Non Authoritative Information",
+  
+              "schema": {
+  
+                "$ref": "#/definitions/ErrorResponse"
+  
+              }
+  
+            },
+  
+            "204": {
+  
+              "description": "No Content Found",
+  
+              "schema": {
+  
+                "$ref": "#/definitions/ErrorResponse"
+  
+              }
+  
+            },
+  
+            "401": {
+  
+              "description": "Unauthorize",
+  
+              "schema": {
+  
+                "$ref": "#/definitions/ErrorResponse"
+  
+              }
+  
+            },
+  
+            "404": {
+  
+              "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+  
+              "schema": {
+  
+                "$ref": "#/definitions/ErrorResponse"
+  
+              }
+  
+            },
+  
+            "408": {
+  
+              "description": "Timeout",
+  
+              "schema": {
+  
+                "$ref": "#/definitions/ErrorResponse"
+  
+              }
+  
+            },
+  
+            "500": {
+  
+              "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+  
+              "schema": {
+  
+                "$ref":"#/definitions/ErrorResponse"
+  
+              }
+  
+            }
+  
+          }
+  
+        }
+  
+      },
+  
+      "/subscription/share/{username}": {
+  
+        "x-swagger-router-controller": "subscriptionMaster",
+  
+        "post": {
+  
+          "tags": [
+  
+            "Subscriptions"
+  
+          ],
+  
+          "description": "Creates a subscription",
+  
+          "operationId": "share",
+  
+          "parameters": [{
+  
+            "name":"username",
+  
+            "in":"path",
+  
+            "description":"User account which share key",
+  
+            "required": true,
+  
+            "type":"string"
+  
+          },
+  
+            {
+  
+              "name": "shareSub",
+  
+              "in": "body",
+  
+              "description": "User account document to be created",
+  
+              "required": true,
+  
+              "schema": {
+  
+                "$ref": "#/definitions/shareDocument"
+  
+              }
+  
+            }
+  
+          ],
+  
+          "responses": {
+  
+            "201": {
+  
+              "description": "Created",
+  
+              "schema": {
+  
+                "$ref": "#/definitions/subscriptionDocument"
+  
+              }
+  
+            },
+  
+              "203": {
+  
+              "description": "Non Authoritative Information",
+  
+              "schema": {
+  
+                "$ref": "#/definitions/ErrorResponse"
+  
+              }
+  
+            },
+  
+            "204": {
+  
+              "description": "No Content Found",
+  
+              "schema": {
+  
+                "$ref": "#/definitions/ErrorResponse"
+  
+              }
+  
+            },
+  
+            "401": {
+  
+              "description": "Unauthorize",
+  
+              "schema": {
+  
+                "$ref": "#/definitions/ErrorResponse"
+  
+              }
+  
+            },
+  
+            "404": {
+  
+              "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+  
+              "schema": {
+  
+                "$ref": "#/definitions/ErrorResponse"
+  
+              }
+  
+            },
+  
+            "408": {
+  
+              "description": "Timeout",
+  
+              "schema": {
+  
+                "$ref": "#/definitions/ErrorResponse"
+  
+              }
+  
+            },
+  
+            "500": {
+  
+              "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+  
+              "schema": {
+  
+                "$ref":"#/definitions/ErrorResponse"
+  
+              }
+  
+            }
+  
+          }
+  
+        }
+  
+      },
+  
+      "/subscription/master/{username}": {
+  
+        "x-swagger-router-controller": "subscriptionMaster",
+  
+        "get": {
+  
+          "tags": [
+  
+            "Subscriptions"
+  
+          ],
+  
+          "description": "Get a user acount object",
+  
+          "operationId": "getMasterByID",
+  
+          "parameters": [         
+  
+            {
+  
+              "name": "username",
+  
+              "in": "path",
+  
+              "description": "User id",
+  
+              "required": true,
+  
+              "type": "string"
+  
+            }
+  
+          ],
+  
+          "responses": {
+  
+            "201": {
+  
+              "description": "Get account by userId",
+  
+              "schema": {
+  
+                "$ref": "#/definitions/subscriptionDocument"
+  
+              }
+  
+            },
+  
+            "500": {
+  
+              "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+  
+              "schema": {
+  
+                "$ref": "#/definitions/ErrorResponse"
+  
+              }
+  
+            }
+  
+          }
+  
+        },
+  
+        "put": {
+  
+          "tags": [
+  
+            "Subscriptions"
+  
+          ],
+  
+          "description": "Get a user acount object",
+  
+          "operationId": "updateMasterByID",
+  
+          "parameters": [
+  
+            {
+  
+              "name": "username",
+  
+              "in": "path",
+  
+              "description": "User id",
+  
+              "required": true,
+  
+              "type": "string"
+  
+            },
+  
+            {
+  
+              "name": "updateSubscription",
+  
+              "in": "body",
+  
+              "description": "User subscription plan to be Updated",
+  
+              "required": true,
+  
+              "schema": {
+  
+                "$ref": "#/definitions/subscriptionMasterUpdateDocument"
+  
+              }
+  
+            }
+  
+          ],
+  
+          "responses": {
+  
+            "201": {
+  
+              "description": "Get account by userId",
+  
+              "schema": {
+  
+                "$ref": "#/definitions/subscriptionDocument"
+  
+              }
+  
+            },
+  
+            "500": {
+  
+              "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+  
+              "schema": {
+  
+                "$ref": "#/definitions/ErrorResponse"
+  
+              }
+  
+            }
+  
+          }
+  
+        }
+  
+      },
+  
+      "/swagger": {
+  
+        "x-swagger-pipe": "swagger_raw"
+  
+      }
+  
+    },
+  
+    "definitions": {
+  
+      "subscriptionDocument": {
+  
+        "type": "object",
+  
+        "properties": {
+  
+          "data": {
+  
+            "title": "subscriptionResource",
+  
+            "type": "object",
+  
+            "allOf": [
+  
+              {
+  
+                "properties": {
+  
+                  "type": {
+  
+                    "type": "string",
+  
+                    "enum": [
+  
+                      "prime",
+  
+                      "normal"
+  
+                    ]
+  
+                  },
+  
+                  "id": {
+  
+                    "type": "string",
+  
+                    "description": "Unique identifier"
+  
+                  },
+  
+                  "attributes": {
+  
+                    "type": "object",
+  
+                    "required": [
+  
+                      "name"
+  
+                    ],
+  
+                    "properties": {
+  
+                      "name": {
+  
+                        "type": "string"
+  
+                      },
+  
+                       "username": {
+  
+                        "type": "string"
+  
+                      },
+  
+                      "type": {
+  
+                        "type": "string"
+  
+                      },
+  
+                      "subId": {
+  
+                        "type": "string"
+  
+                      },
+  
+                      "ecgCounts": {
+  
+                        "type": "number"
+  
+                      },
+  
+                      "validUpto": {
+  
+                        "type": "string",
+  
+                        "format": "date"
+  
+                      },
+  
+                      "subscriptionCount":{
+  
+                        "type":"object",
+  
+                        "properties":{
+  
+                          "count": {
+  
+                            "type":"number"
+  
+                          },
+  
+                          "creationDate": {
+  
+                            "type": "string",
+  
+                            "format": "date-time"
+  
+                          }                        
+  
+                        }
+  
+                      },
+  
+                      "defaultCount":{
+  
+                        "type":"object",
+  
+                        "properties":{
+  
+                          "count": {
+  
+                            "type":"number"
+  
+                          },
+  
+                          "creationDate": {
+  
+                            "type": "string",
+  
+                            "format": "date-time"
+  
+                         }                        
+  
+                      }
+  
+                    },
+  
+                      "usersAllow": {
+  
+                        "type": "number"
+  
+                      }
+  
+                    }
+  
+                  },
+  
+                  "links": {
+  
+                    "type": "object",
+  
+                    "required": [
+  
+                      "self",
+  
+                      "next",
+  
+                      "last"
+  
+                    ],
+  
+                    "properties": {
+  
+                      "self": {
+  
+                        "type": "string"
+  
+                      },
+  
+                      "next": {
+  
+                        "type": "string"
+  
+                      },
+  
+                      "last": {
+  
+                        "type": "string"
+  
+                      }
+  
+                    }
+  
+                  },
+  
+                  "meta": {
+  
+                    "type": "object",
+  
+                    "properties": {
+  
+                      "creationDate": {
+  
+                        "type": "string",
+  
+                        "format": "date-time"
+  
+                      },
+  
+                      "modificationDate": {
+  
+                        "type": "string",
+  
+                        "format": "date-time"
+  
+                      }
+  
+                    }
+  
+                  },
+  
+                  "relationships": {},
+  
+                  "included": {}
+  
+                }
+  
+              }
+  
+            ]
+  
+          }
+  
+        }
+  
+      },
+  
+      "subscriptionUpdateDocument": {
+  
+        "type": "object",
+  
+        "properties": {
+  
+          "data": {
+  
+            "title": "subscriptionsResource",
+  
+            "type": "object",
+  
+            "allOf": [
+  
+              {
+  
+                "properties": {
+  
+                  "type": {
+  
+                    "type": "string",
+  
+                    "enum": [
+  
+                     "prime",
+  
+                      "normal"
+  
+                    ]
+  
+                  },
+  
+                  "id": {
+  
+                    "type": "string",
+  
+                    "description": "Unique identifier"
+  
+                  },
+  
+                  "attributes": {
+  
+                    "type": "object",
+  
+                    "required": [
+  
+                      "name"
+  
+                    ],
+  
+                    "properties": {
+  
+                      "name": {
+  
+                        "type": "string"
+  
+                      },
+  
+                       "username": {
+  
+                        "type": "string"
+  
+                      },
+  
+                      "type": {
+  
+                        "type": "string"
+  
+                      },
+  
+                      "subId": {
+  
+                        "type": "string"
+  
+                      },
+  
+                      "ecgCounts": {
+  
+                        "type": "number"
+  
+                      },
+  
+                      "validUpto": {
+  
+                        "type": "string",
+  
+                        "format": "date"
+  
+                      },
+  
+                      "subscriptionCount":{
+  
+                        "type":"object",
+  
+                        "properties":{
+  
+                          "count": {
+  
+                            "type":"number"
+  
+                          },
+  
+                          "creationDate": {
+  
+                            "type": "string",
+  
+                            "format": "date-time"
+  
+                          }                        
+  
+                        }
+  
+                      },
+  
+                      "defaultCount":{
+  
+                          "type":"object",
+  
+                          "properties":{
+  
+                            "count": {
+  
+                              "type":"number"
+  
+                            },
+  
+                            "creationDate": {
+  
+                              "type": "string",
+  
+                              "format": "date-time"
+  
+                           }                        
+  
+                        }
+  
+                      },
+  
+                      "usersAllow": {
+  
+                        "type": "number"
+  
+                      }
+  
+                    }
+  
+                  },
+  
+                  "links": {
+  
+                    "type": "object",
+  
+                    "required": [
+  
+                      "self",
+  
+                      "next",
+  
+                      "last"
+  
+                    ],
+  
+                    "properties": {
+  
+                      "self": {
+  
+                        "type": "string"
+  
+                      },
+  
+                      "next": {
+  
+                        "type": "string"
+  
+                      },
+  
+                      "last": {
+  
+                        "type": "string"
+  
+                      }
+  
+                    }
+  
+                  },
+  
+                  "meta": {
+  
+                    "type": "object",
+  
+                    "properties": {
+  
+                      "creationDate": {
+  
+                        "type": "string",
+  
+                        "format": "date-time"
+  
+                      },
+  
+                      "modificationDate": {
+  
+                        "type": "string",
+  
+                        "format": "date-time"
+  
+                      }
+  
+                    }
+  
+                  },
+  
+                  "relationships": {},
+  
+                  "included": {}
+  
+                }
+  
+              }
+  
+            ]
+  
+          }
+  
+        }
+  
+      },
+  
+       "subscriptionMasterDocument": {
+  
+        "type": "object",
+  
+        "properties": {
+  
+          "data": {
+  
+            "title": "subscriptionResource",
+  
+            "type": "object",
+  
+            "allOf": [
+  
+              {
+  
+                "properties": {
+  
+                  "type": {
+  
+                    "type": "string",
+  
+                    "enum": [
+  
+                      "master"
+  
+                    ]
+  
+                  },
+  
+                  "id": {
+  
+                    "type": "string",
+  
+                    "description": "Unique identifier"
+  
+                  },
+  
+                  "attributes": {
+  
+                    "type": "object",
+  
+                    "required": [
+  
+                      "name"
+  
+                    ],
+  
+                    "properties": {
+  
+                      "name": {
+  
+                        "type": "string"
+  
+                      },
+  
+                       "username": {
+  
+                        "type": "string"
+  
+                      },
+  
+                      "type": {
+  
+                        "type": "string"
+  
+                      },
+  
+                      "subId": {
+  
+                        "type": "string"
+  
+                      },
+  
+                      "hitsAllowed": {
+  
+                        "type": "number"
+  
+                      },
+  
+                      "validUpto": {
+  
+                        "type": "string",
+  
+                        "format": "date"
+  
+                      },
+  
+                      "keyCounts":{
+  
+                        "type":"object",
+  
+                        "properties":{
+  
+                          "count": {
+  
+                            "type":"number"
+  
+                          },
+  
+                          "portal":{
+  
+                            "type":"boolean"
+  
+                          },
+  
+                          "creationDate": {
+  
+                            "type": "string",
+  
+                            "format": "date-time"
+  
+                          }                        
+  
+                        }
+  
+                      },
+  
+                      "keys":{
+  
+                            "type": "array",
+  
+                            "items":{
+  
+                              "type":"string"
+  
+                            }
+  
+                      },
+  
+                      "shareKey":{
+  
+                        "type":"array",
+  
+                        "items":{
+  
+                          "type":"object",
+  
+                          "properties":{
+  
+                            "key":{
+  
+                             "type":"string"
+  
+                            },
+  
+                             "creationDate": {
+  
+                            "type": "string",
+  
+                            "format": "date-time"
+  
+                          },
+  
+                          "number":{
+  
+                            "type":"string"
+  
+                          }
+  
+                          }
+  
+                         
+  
+                        }
+  
+                      }
+  
+                      
+  
+                    }
+  
+                  },
+  
+                  "links": {
+  
+                    "type": "object",
+  
+                    "required": [
+  
+                      "self",
+  
+                      "next",
+  
+                      "last"
+  
+                    ],
+  
+                    "properties": {
+  
+                      "self": {
+  
+                        "type": "string"
+  
+                      },
+  
+                      "next": {
+  
+                        "type": "string"
+  
+                      },
+  
+                      "last": {
+  
+                        "type": "string"
+  
+                      }
+  
+                    }
+  
+                  },
+  
+                  "meta": {
+  
+                    "type": "object",
+  
+                    "properties": {
+  
+                      "creationDate": {
+  
+                        "type": "string",
+  
+                        "format": "date-time"
+  
+                      },
+  
+                      "modificationDate": {
+  
+                        "type": "string",
+  
+                        "format": "date-time"
+  
+                      }
+  
+                    }
+  
+                  },
+  
+                  "relationships": {},
+  
+                  "included": {}
+  
+                }
+  
+              }
+  
+            ]
+  
+          }
+  
+        }
+  
+      },
+  
+      "subscriptionMasterUpdateDocument": {
+  
+        "type": "object",
+  
+        "properties": {
+  
+          "data": {
+  
+            "title": "subscriptionsResource",
+  
+            "type": "object",
+  
+            "allOf": [
+  
+              {
+  
+                "properties": {
+  
+                  "type": {
+  
+                    "type": "string",
+  
+                    "enum": [
+  
+                     "master"
+  
+                    ]
+  
+                  },
+  
+                  "id": {
+  
+                    "type": "string",
+  
+                    "description": "Unique identifier"
+  
+                  },
+  
+                  "attributes": {
+  
+                    "type": "object",
+  
+                    "required": [
+  
+                      "name"
+  
+                    ],
+  
+                    "properties": {
+  
+                      "name": {
+  
+                        "type": "string"
+  
+                      },
+  
+                       "username": {
+  
+                        "type": "string"
+  
+                      },
+  
+                      "type": {
+  
+                        "type": "string"
+  
+                      },
+  
+                      "subId": {
+  
+                        "type": "string"
+  
+                      },
+  
+                      "keyCounts": {
+  
+                        "type":"object",
+  
+                        "properties":{
+  
+                          "count": {
+  
+                            "type":"number"
+  
+                          },
+  
+                          "portal":{
+  
+                            "type":"boolean"
+  
+                          },
+  
+                          "creationDate": {
+  
+                            "type": "string",
+  
+                            "format": "date-time"
+  
+                          }                        
+  
+                        }
+  
+                      },
+  
+                      "hitsAllowed":{
+  
+                        "type":"number"
+  
+                      },
+  
+                      "validUpto": {
+  
+                        "type": "string",
+  
+                        "format": "date"
+  
+                      },
+  
+                      "keys":{
+  
+                        "type":"array",
+  
+                        "items":{
+  
+                          "type":"string"
+  
+                        }
+  
+                      },
+  
+                      "shareKey":{
+  
+                        "type":"array",
+  
+                        "items":{
+  
+                          "type":"object",
+  
+                          "properties":{
+  
+                            "key":{
+  
+                             "type":"string"
+  
+                            },
+  
+                             "creationDate": {
+  
+                            "type": "string",
+  
+                            "format": "date-time"
+  
+                          },
+  
+                          "number":{
+  
+                            "type":"string"
+  
+                          }
+  
+                          }
+  
+                         
+  
+                        }
+  
+                      }
+  
+                    }
+  
+                  },
+  
+                  "links": {
+  
+                    "type": "object",
+  
+                    "required": [
+  
+                      "self",
+  
+                      "next",
+  
+                      "last"
+  
+                    ],
+  
+                    "properties": {
+  
+                      "self": {
+  
+                        "type": "string"
+  
+                      },
+  
+                      "next": {
+  
+                        "type": "string"
+  
+                      },
+  
+                      "last": {
+  
+                        "type": "string"
+  
+                      }
+  
+                    }
+  
+                  },
+  
+                  "meta": {
+  
+                    "type": "object",
+  
+                    "properties": {
+  
+                      "creationDate": {
+  
+                        "type": "string",
+  
+                        "format": "date-time"
+  
+                      },
+  
+                      "modificationDate": {
+  
+                        "type": "string",
+  
+                        "format": "date-time"
+  
+                      }
+  
+                    }
+  
+                  },
+  
+                  "relationships": {},
+  
+                  "included": {}
+  
+                }
+  
+              }
+  
+            ]
+  
+          }
+  
+        }
+  
+      },
+  
+      "shareDocument":{
+  
+        "title":"Share Object",
+  
+        "type":"object",
+  
+        "properties":{
+  
+          "key":{
+  
+            "type":"string"
+  
+          },
+  
+          "number":{
+  
+             "type":"string"
+  
+          }
+  
+        }
+  
+      },
+  
+      "ErrorResponse": {
+  
+        "title": "error",
+  
+        "type": "object",
+  
+        "properties": {
+  
+          "errors": {
+  
+            "type": "array",
+  
+            "items": {
+  
+              "type": "object",
+  
+              "properties": {
+  
+                "title": {
+  
+                  "type": "string"
+  
+                },
+  
+                "code": {
+  
+                  "type": "string"
+  
+                },
+  
+                "detail": {
+  
+                  "type": "string"
+  
+                },
+  
+                "source": {
+  
+                  "type": "object",
+  
+                  "properties": {
+  
+                    "pointer": {
+  
+                      "type": "string"
+  
+                    },
+  
+                    "parameter": {
+  
+                      "type": "string"
+  
+                    }
+  
+                  }
+  
+                },
+  
+                "meta": {
+  
+                  "type": "object"
+  
+                }
+  
+              },
+  
+              "required": [
+  
+                "title",
+  
+                "code",
+  
+                "detail"
+  
+              ]
+  
+            }
+  
+          }
+  
+        }
+  
+      }
+  
+    }
+  
+  }

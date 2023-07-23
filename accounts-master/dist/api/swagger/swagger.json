@@ -1,0 +1,2519 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "0.0.1",
+    "title": "Accounts Microservice",
+    "contact": {
+      "email": "mail@agatsa.com"
+    },
+    "license": {
+      "name": "Copyright Agatsa 2017. All rights reserved."
+    }
+  },
+  "host": "localhost:7002",
+  "basePath": "/api",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "securityDefinitions": {
+    "basicAuth": {
+      "type": "basic",
+      "description": "Http basic Authentication"
+    }
+  },
+  "paths": {
+    "/accounts": {
+      "x-swagger-router-controller": "accounts",
+      "get": {
+        "tags": [
+          "Accounts"
+        ],
+        "description": "Returns the list of all users available",
+        "operationId": "getAll",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization token",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/accountsDocument"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "409": {
+            "description": "Duplicate ID",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "500": {
+            "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Accounts"
+        ],
+        "description": "Creates a user Account",
+        "operationId": "create",
+        "parameters": [
+          {
+            "name": "account",
+            "in": "body",
+            "description": "User account document to be created",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/accountsDocument"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/accountsDocument"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "409": {
+            "description": "Duplicate ID",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "500": {
+            "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          }
+        }
+      }
+    },
+    "/accounts/master": {
+      "x-swagger-router-controller": "masterAccounts",
+      "get": {
+        "tags": [
+          "Master Accounts"
+        ],
+        "description": "Returns the list of all users available",
+        "operationId": "getAllMaster",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Authorization token",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/masterAccountsDocument"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "409": {
+            "description": "Duplicate ID",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "500": {
+            "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Master Accounts"
+        ],
+        "description": "Creates a user Account",
+        "operationId": "createMaster",
+        "parameters": [
+          {
+            "name": "account",
+            "in": "body",
+            "description": "User account document to be created",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/masterAccountsDocument"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/masterAccountsDocument"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "409": {
+            "description": "Duplicate ID",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "500": {
+            "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          }
+        }
+      }
+    },
+    "/account/master/{userId}": {
+      "x-swagger-router-controller": "masterAccounts",
+      "get": {
+        "tags": [
+          "Master Accounts"
+        ],
+        "description": "Get a user acount object",
+        "operationId": "getMasterID",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "User id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Get account by userId",
+            "schema": {
+              "$ref": "#/definitions/masterAccountsDocument"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "404": {
+            "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "409": {
+            "description": "Duplicate ID",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "500": {
+            "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Master Accounts"
+        ],
+        "description": "Get a user acount object",
+        "operationId": "updateMasterByID",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "User id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "updateAccount",
+            "in": "body",
+            "description": "User account document to be Updated",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/masterAccountUpdateDocument"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Get account by userId",
+            "schema": {
+              "$ref": "#/definitions/accountsDocument"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "404": {
+            "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "409": {
+            "description": "Duplicate ID",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "500": {
+            "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          }
+        }
+      }
+    },
+    "/accounts/Add/{user}": {
+      "x-swagger-router-controller": "follower",
+      "post": {
+        "tags": [
+          "Followers"
+        ],
+        "description": "Add user from the list of all users available on perticular name or username",
+        "operationId": "Add",
+        "parameters": [
+          {
+            "name": "linkObject",
+            "in": "body",
+            "description": "Link object have the params of user which wants to be add",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/linkDocument"
+            }
+          },
+          {
+            "name": "user",
+            "in": "path",
+            "description": "It can be username or a user name to whom we want to follow",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/accountsDocument"
+            }
+          },
+          "404": {
+            "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "500": {
+            "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          }
+        }
+      }
+    },
+    "/accounts/Delete/{username}": {
+      "x-swagger-router-controller": "follower",
+      "post": {
+        "tags": [
+          "Followers"
+        ],
+        "description": "Delete user from the list of all users available on perticular name or username",
+        "operationId": "Delete",
+        "parameters": [
+          {
+            "name": "linkObject",
+            "in": "body",
+            "description": "Link object have the params of user which wants to be Delete",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/linkDocument"
+            }
+          },
+          {
+            "name": "username",
+            "in": "path",
+            "description": "It can be username or a user name to whom we want to follow",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/accountsDocument"
+            }
+          },
+          "404": {
+            "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "500": {
+            "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          }
+        }
+      }
+    },
+    "/accounts/Accept/{user}": {
+      "x-swagger-router-controller": "follower",
+      "post": {
+        "tags": [
+          "Followers"
+        ],
+        "description": "Accept user from the list of all users available on perticular name or username",
+        "operationId": "Accept",
+        "parameters": [
+          {
+            "name": "linkObject",
+            "in": "body",
+            "description": "Link object have the params of user which wants to be add",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/linkDocument"
+            }
+          },
+          {
+            "name": "user",
+            "in": "path",
+            "description": "It can be username or a user name to whom we want to follow",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/accountsDocument"
+            }
+          },
+          "404": {
+            "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "500": {
+            "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          }
+        }
+      }
+    },
+    "/accounts/link/{username}": {
+      "x-swagger-router-controller": "accounts",
+      "post": {
+        "tags": [
+          "Links"
+        ],
+        "description": "Add user from the list of all users available on perticular name or username",
+        "operationId": "Links",
+        "parameters": [
+          {
+            "name": "linkKey",
+            "in": "body",
+            "description": "Link object have the params of user which wants to be add",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/linkShareDocument"
+            }
+          },
+          {
+            "name": "username",
+            "in": "path",
+            "description": "It can be username or a user name to whom we want to follow",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/accountsDocument"
+            }
+          },
+          "404": {
+            "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "500": {
+            "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          }
+        }
+      }
+    },
+    "/accounts/link/Account/{username}": {
+      "x-swagger-router-controller": "accounts",
+      "get": {
+        "tags": [
+          "Links"
+        ],
+        "description": "Add user from the list of all users available on perticular name or username",
+        "operationId": "LinkAcc",
+        "parameters": [
+          {
+            "name": "linkAccKey",
+            "in": "header",
+            "description": "Link object have the params of user which wants to be add",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "username",
+            "in": "path",
+            "description": "It can be username or a user name to whom we want to follow",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/accountsDocument"
+            }
+          },
+          "404": {
+            "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "500": {
+            "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          }
+        }
+      }
+    },
+    "/accounts/search/{user}": {
+      "x-swagger-router-controller": "follower",
+      "get": {
+        "tags": [
+          "Followers"
+        ],
+        "description": "Returns the list of all users available on perticular name or username",
+        "operationId": "searchAll",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "path",
+            "description": "It can be username or a name to whom we want to follow",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/accountsDocument"
+            }
+          },
+          "404": {
+            "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "500": {
+            "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          }
+        }
+      }
+    },
+    "/accounts/link/key/{username}": {
+      "x-swagger-router-controller": "linkKey",
+      "post": {
+        "tags": [
+          "Links"
+        ],
+        "description": "Add user from the list of all users available on perticular name or username",
+        "operationId": "LinkKey",
+        "parameters": [
+          {
+            "name": "linkObject",
+            "in": "body",
+            "description": "Link object have the params of user which wants to be add",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/linkDocument"
+            }
+          },
+          {
+            "name": "username",
+            "in": "path",
+            "description": "It can be username or a user name to whom we want to follow",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/accountsDocument"
+            }
+          },
+          "404": {
+            "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "500": {
+            "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          }
+        }
+      }
+    },
+    "/accounts/link/account/key/{username}": {
+      "x-swagger-router-controller": "LinkKey",
+      "post": {
+        "tags": [
+          "Links"
+        ],
+        "description": "Add user from the list of all users available on perticular name or username",
+        "operationId": "LinkAccKey",
+        "parameters": [
+          {
+            "name": "linkObject",
+            "in": "body",
+            "description": "Link object have the params of user which wants to be add",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/linkDocument"
+            }
+          },
+          {
+            "name": "username",
+            "in": "path",
+            "description": "It can be username or a user name to whom we want to follow",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/accountsDocument"
+            }
+          },
+          "404": {
+            "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "500": {
+            "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          }
+        }
+      }
+    },
+    "/account/{userId}": {
+      "x-swagger-router-controller": "accounts",
+      "get": {
+        "tags": [
+          "Accounts"
+        ],
+        "security": [
+          "basicAuth": []
+        ],
+        "description": "Get a user acount object",
+        "operationId": "getByID",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "User id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "isPhone",
+            "in": "header",
+            "description": "if request is phone number",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Get account by userId",
+            "schema": {
+              "$ref": "#/definitions/accountsDocument"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "404": {
+            "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "409": {
+            "description": "Duplicate ID",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "500": {
+            "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Accounts"
+        ],
+        "description": "Get a user acount object",
+        "operationId": "updateByID",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "User id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "updateAccount",
+            "in": "body",
+            "description": "User account document to be Updated",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/accountUpdateDocument"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Get account by userId",
+            "schema": {
+              "$ref": "#/definitions/accountsDocument"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "404": {
+            "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "409": {
+            "description": "Duplicate ID",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "500": {
+            "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          }
+        }
+      }
+    },
+    "/account/loginotp": {
+      "x-swagger-router-controller": "accounts",
+      "post": {
+        "tags": [
+          "login with OTP"
+        ],
+        "description": "Get a user acount object",
+        "operationId": "loginOtpGenerator",
+        "parameters": [
+          {
+            "name": "mobile",
+            "in": "body",
+            "description": "User account document to be Updated",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/loginOtp"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Get account by userId",
+            "schema": {
+              "$ref": "#/definitions/accountsDocument"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "404": {
+            "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "409": {
+            "description": "Duplicate ID",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "500": {
+            "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          }
+        }
+      }
+    },
+    "/account/get/{phone}": {
+      "x-swagger-router-controller": "accounts",
+      "get": {
+        "tags": [
+          "Accounts"
+        ],
+        "description": "Get a user acount object",
+        "operationId": "getByPhone",
+        "parameters": [
+          {
+            "name": "phone",
+            "in": "path",
+            "description": "User id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Get account by userId",
+            "schema": {
+              "$ref": "#/definitions/accountsDocument"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "404": {
+            "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "409": {
+            "description": "Duplicate ID",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "500": {
+            "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          }
+        }
+      }
+    },
+    "/verify/otp/login": {
+      "x-swagger-router-controller": "accounts",
+      "get": {
+        "tags": [
+          "login with OTP"
+        ],
+        "description": "Add user from the list of all users available on perticular name or username",
+        "operationId": "verifyOtpLogin",
+        "security": [
+          "basicAuth": []
+        ],
+        "parameters": [
+          {
+            "name": "isphone",
+            "in": "header",
+            "description": "User id",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/accountsDocument"
+            }
+          },
+          "404": {
+            "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "500": {
+            "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          }
+        }
+      }
+    },
+    "/getlablist": {
+      "x-swagger-router-controller": "sdklab",
+      "get": {
+        "tags": [
+          "lab username"
+        ],
+        "description": "Add user from the list of all users available on perticular name or username",
+        "operationId": "getlist",
+        "parameters": [
+          
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/accountsDocument"
+            }
+          },
+          "404": {
+            "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "500": {
+            "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          }
+        }
+      }
+    },
+    "/account/join/{username}": {
+      "x-swagger-router-controller": "accounts",
+      "get": {
+        "tags": [
+          "Accounts"
+        ],
+        "description": "Get a user acount object",
+        "operationId": "pushSec",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "User id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Get account by userId",
+            "schema": {
+              "$ref": "#/definitions/accountsDocument"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "404": {
+            "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "409": {
+            "description": "Duplicate ID",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "500": {
+            "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          }
+        }
+      }
+    },
+    "/account/reset/{username}": {
+      "x-swagger-router-controller": "accounts",
+      "get": {
+        "tags": [
+          "Accounts"
+        ],
+        "description": "Get a user acount object",
+        "operationId": "resetID",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "User id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get account by userId",
+            "schema": {
+              "$ref": "#/definitions/accountsDocument"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "404": {
+            "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "409": {
+            "description": "Duplicate ID",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "500": {
+            "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          }
+        }
+      }
+    },
+    "/account/resetnew/{username}/{phone}": {
+      "x-swagger-router-controller": "accounts",
+      "get": {
+        "tags": [
+          "Accounts"
+        ],
+        "description": "Get a user acount object",
+        "operationId": "resetIDNew",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "User id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "phone",
+            "in": "path",
+            "description": "User id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get account by userId",
+            "schema": {
+              "$ref": "#/definitions/accountsDocument"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "404": {
+            "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "409": {
+            "description": "Duplicate ID",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "500": {
+            "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          }
+        }
+      }
+    },
+    "/account/sendotp/{phonenumber}": {
+      "x-swagger-router-controller": "accounts",
+      "get": {
+        "tags": [
+          "Accounts"
+        ],
+        "description": "Get a user acount object",
+        "operationId": "createOtp",
+        "parameters": [
+          {
+            "name": "phonenumber",
+            "in": "path",
+            "description": "User id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get account by userId",
+            "schema": {
+              "$ref": "#/definitions/otpsend"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "404": {
+            "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "409": {
+            "description": "Duplicate ID",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "500": {
+            "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          }
+        }
+      }
+    },
+    "/account/resetUsername/{mobile}": {
+      "x-swagger-router-controller": "accounts",
+      "get": {
+        "tags": [
+          "Accounts"
+        ],
+        "description": "Get a user acount object",
+        "operationId": "resetUsername",
+        "parameters": [
+          {
+            "name": "mobile",
+            "in": "path",
+            "description": "User id",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get account by userId",
+            "schema": {
+              "$ref": "#/definitions/accountsDocument"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "404": {
+            "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "409": {
+            "description": "Duplicate ID",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "500": {
+            "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          }
+        }
+      }
+    },
+    "/account/resetkey/{key}": {
+      "x-swagger-router-controller": "accounts",
+      "get": {
+        "tags": [
+          "Accounts"
+        ],
+        "description": "Get a user acount object",
+        "operationId": "resetKey",
+        "parameters": [
+          {
+            "name": "key",
+            "in": "path",
+            "description": "User id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get account by userId",
+            "schema": {
+              "$ref": "#/definitions/accountsDocument"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "404": {
+            "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "409": {
+            "description": "Duplicate ID",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "500": {
+            "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          }
+        }
+      }
+    },
+    "/version": {
+      "x-swagger-router-controller": "accounts",
+      "get": {
+        "tags": [
+          "Accounts"
+        ],
+        "description": "Get a user acount object",
+        "operationId": "getversion",
+        "parameters": [
+        ],
+        "responses": {
+          "200": {
+            "description": "Get account by userId",
+            "schema": {
+              "$ref": "#/definitions/accountsDocument"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "404": {
+            "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "409": {
+            "description": "Duplicate ID",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "500": {
+            "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Accounts"
+        ],
+        "description": "Get a user acount object",
+        "operationId": "createVersion",
+        "parameters": [
+          {
+            "name": "versionbody",
+            "in": "body",
+            "description": "User password",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/versionbody"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get account by userId",
+            "schema": {
+              "$ref": "#/definitions/accountsDocument"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "404": {
+            "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "409": {
+            "description": "Duplicate ID",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "500": {
+            "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          }
+        }
+      }
+    },
+    "/account/removesecondary/{primary}/{secondary}": {
+      "x-swagger-router-controller": "accounts",
+      "delete": {
+        "tags": [
+          "Accounts"
+        ],
+        "description": "Get a user acount object",
+        "operationId": "removeSec",
+        "parameters": [
+          {
+            "name": "primary",
+            "in": "path",
+            "description": "User id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "secondary",
+            "in": "path",
+            "description": "User id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get account by userId",
+            "schema": {
+              "$ref": "#/definitions/accountsDocument"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "404": {
+            "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "409": {
+            "description": "Duplicate ID",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "500": {
+            "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          }
+        }
+      }
+    },
+    "/account/password/reset/{username}": {
+      "x-swagger-router-controller": "accounts",
+      "post": {
+        "tags": [
+          "Accounts"
+        ],
+        "description": "Get a user acount object",
+        "operationId": "resetPassword",
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "User Name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "passwordBody",
+            "in": "body",
+            "description": "User password",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/passwordBody"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get account by userId",
+            "schema": {
+              "$ref": "#/definitions/accountsDocument"
+            }
+          },
+          "203": {
+            "description": "Non Authoritative Information",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "204": {
+            "description": "No Content Found",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "404": {
+            "description": "Not found. The requested resource could not be found. It is either unavailable or does not exist.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "408": {
+            "description": "Timeout",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "409": {
+            "description": "Duplicate ID",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          },
+          "500": {
+            "description": "Server error. The server encountered an unexpected condition which prevented it from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/errorDocument"
+            }
+          }
+        }
+      }
+    },
+    "/swagger": {
+      "x-swagger-pipe": "swagger_raw"
+    }
+  },
+  "definitions": {
+    "linkDocument": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "title": "accountResource",
+          "type": "object",
+          "allOf": [
+            {
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string",
+                  "description": "Unique identifier"
+                },
+                "attributes": {
+                  "type": "object",
+                  "required": [
+                    "username",
+                    "name"
+                  ],
+                  "properties": {
+                    "username": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "linkShareDocument": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "title": "accountResource",
+          "type": "object",
+          "allOf": [
+            {
+              "properties": {
+                "type": {
+                  "type": "string"
+                },
+                "id": {
+                  "type": "string",
+                  "description": "Unique identifier"
+                },
+                "attributes": {
+                  "type": "object",
+                  "required": [
+                    "linkKey"
+                  ],
+                  "properties": {
+                    "linkKey": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "accountsDocument": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "title": "accountResource",
+          "type": "object",
+          "allOf": [
+            {
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "Primary",
+                    "Secondary"
+                  ]
+                },
+                "id": {
+                  "type": "string",
+                  "description": "Unique identifier"
+                },
+                "attributes": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "type",
+                    "username",
+                    "password"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "lastname": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "patientId":{
+                      "type":"string"
+                    },
+                    "username": {
+                      "type": "string"
+                    },
+                    "password": {
+                      "type": "string"
+                    },
+                    "countrycode": {
+                      "type": "string"
+                    },
+                    "mobile": {
+                      "type": "number"
+                    },
+                    "primaryUser": {
+                      "type": "string"
+                    },
+                    "symptoms": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "isHeartPatient": {
+                      "type": "boolean"
+                    },
+                    "dob": {
+                      "type": "string"
+                    },
+                    "gender": {
+                      "type": "string"
+                    },
+                    "diabetic": {
+                      "type": "boolean"
+                    },
+                    "alcoholic": {
+                      "type": "boolean"
+                    },
+                    "smoker": {
+                      "type": "boolean"
+                    },
+                    "linked": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "username": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "links": {
+                  "type": "object",
+                  "required": [
+                    "self",
+                    "next",
+                    "last"
+                  ],
+                  "properties": {
+                    "self": {
+                      "type": "string"
+                    },
+                    "next": {
+                      "type": "string"
+                    },
+                    "last": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "meta": {
+                  "type": "object",
+                  "properties": {
+                    "creationDate": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "modificationDate": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  }
+                },
+                "relationships": {},
+                "included": {}
+              }
+            }
+          ]
+        }
+      }
+    },
+    "accountUpdateDocument": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "title": "accountResource",
+          "type": "object",
+          "allOf": [
+            {
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "accountPrimary",
+                    "accountSecondary"
+                  ]
+                },
+                "id": {
+                  "type": "string",
+                  "description": "Unique identifier"
+                },
+                "attributes": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "type"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "lastname": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "countrycode": {
+                      "type": "string"
+                    },
+                    "patientId":{
+                      "type":"string"
+                    },
+                    "mobile": {
+                      "type": "number"
+                    },
+                    "bloodGroup": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "dob": {
+                      "type": "string"
+                    },
+                    "userType": {
+                      "type": "string"
+                    },
+                    "symptoms": {
+                      "type": "string"
+                    },
+                    "profilPic": {
+                      "type": "string"
+                    },
+                    "gender": {
+                      "type": "string"
+                    },
+                    "height": {
+                      "type": "number"
+                    },
+                    "weight": {
+                      "type": "number"
+                    },
+                    "isHeartPatient": {
+                      "type": "boolean"
+                    },
+                    "smoker": {
+                      "type": "boolean"
+                    },
+                    "alcoholic": {
+                      "type": "boolean"
+                    },
+                    "diabetic": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "links": {
+                  "type": "object",
+                  "required": [
+                    "self",
+                    "next",
+                    "last"
+                  ],
+                  "properties": {
+                    "self": {
+                      "type": "string"
+                    },
+                    "next": {
+                      "type": "string"
+                    },
+                    "last": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "meta": {
+                  "type": "object",
+                  "properties": {
+                    "creationDate": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "modificationDate": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  }
+                },
+                "relationships": {},
+                "included": {}
+              }
+            }
+          ]
+        }
+      }
+    },
+    "masterAccountsDocument": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "title": "accountResource",
+          "type": "object",
+          "allOf": [
+            {
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "Corporate"
+                  ]
+                },
+                "id": {
+                  "type": "string",
+                  "description": "Unique identifier"
+                },
+                "attributes": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "type",
+                    "username",
+                    "password"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "lastname": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "username": {
+                      "type": "string"
+                    },
+                    "password": {
+                      "type": "string"
+                    },
+                    "countrycode": {
+                      "type": "string"
+                    },
+                    "mobile": {
+                      "type": "number"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "address": {
+                      "type": "string"
+                    },
+                    "portal": {
+                      "type": "boolean"
+                    },
+                    "linkedUsers": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "username": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "state": {
+                            "type": "number"
+                          }
+                        }
+                      }
+                    },
+                    "subscribers": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "username": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "state": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "links": {
+                  "type": "object",
+                  "required": [
+                    "self",
+                    "next",
+                    "last"
+                  ],
+                  "properties": {
+                    "self": {
+                      "type": "string"
+                    },
+                    "next": {
+                      "type": "string"
+                    },
+                    "last": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "meta": {
+                  "type": "object",
+                  "properties": {
+                    "creationDate": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "modificationDate": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  }
+                },
+                "relationships": {},
+                "included": {}
+              }
+            }
+          ]
+        }
+      }
+    },
+    "masterAccountUpdateDocument": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "title": "accountResource",
+          "type": "object",
+          "allOf": [
+            {
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "Cooprate"
+                  ]
+                },
+                "id": {
+                  "type": "string",
+                  "description": "Unique identifier"
+                },
+                "attributes": {
+                  "type": "object",
+                  "required": [
+                    "name",
+                    "type"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "lastname": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "countrycode": {
+                      "type": "string"
+                    },
+                    "mobile": {
+                      "type": "number"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "address": {
+                      "type": "string"
+                    },
+                    "portal": {
+                      "type": "boolean"
+                    }
+                  }
+                },
+                "links": {
+                  "type": "object",
+                  "required": [
+                    "self",
+                    "next",
+                    "last"
+                  ],
+                  "properties": {
+                    "self": {
+                      "type": "string"
+                    },
+                    "next": {
+                      "type": "string"
+                    },
+                    "last": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "meta": {
+                  "type": "object",
+                  "properties": {
+                    "creationDate": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "modificationDate": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  }
+                },
+                "relationships": {},
+                "included": {}
+              }
+            }
+          ]
+        }
+      }
+    },
+    "passwordBody": {
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "versionbody": {
+      "type": "object",
+      "properties": {
+        "sanketLifeAndroid": {
+          "type": "string"
+        },
+        "sanketLifeIos": {
+          "type": "string"
+        },
+        "sanketDocAndroid": {
+          "type": "string"
+        },
+        "sanketDocIos": {
+          "type": "string"
+        },
+        "banner": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      }
+    },
+    "otpsend": {
+      "type": "object",
+      "properties": {
+        "otp": {
+          "type": "number"
+        }
+      }
+    },
+    "loginOtp": {
+      "type": "object",
+      "properties": {
+        "mobile": {
+          "type": "number"
+        },
+        "cc":{
+          "type":"string"
+        }
+      }
+    },
+    "errorDocument": {
+      "title": "error",
+      "type": "object",
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "code": {
+                "type": "string"
+              },
+              "detail": {
+                "type": "string"
+              },
+              "source": {
+                "type": "object",
+                "properties": {
+                  "pointer": {
+                    "type": "string"
+                  },
+                  "parameter": {
+                    "type": "string"
+                  }
+                }
+              },
+              "meta": {
+                "type": "object"
+              }
+            },
+            "required": [
+              "title",
+              "code",
+              "detail"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

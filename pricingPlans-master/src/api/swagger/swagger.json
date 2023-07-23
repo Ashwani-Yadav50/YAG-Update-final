@@ -1,0 +1,514 @@
+{
+  "swagger": "2.0",
+  "info": {
+     "version": "0.0.1",
+     "title": "Pricing Plans Microservice",
+     "contact": {
+        "email": "mail@agatsa.com"
+     },
+     "license": {
+        "name": "Copyright Agatsa 2017. All rights reserved."
+     }
+  },
+  "host": "localhost:4000",
+  "basePath": "/api",
+  "schemes": [
+     "http",
+     "https"
+  ],
+  "consumes": [
+     "application/json"
+  ],
+  "produces": [
+     "application/json"
+  ],
+  "tags": [
+     {
+        "name": "Plans",
+        "description": "Microservice to create pricing plans in a SaaS based architecture."
+     }
+  ],
+  "paths": {
+     "/pricingPlans": {
+        "x-swagger-router-controller": "pricingPlans",
+        "get": {
+           "tags": [
+              "Plans"
+           ],
+           "description": "Returns the list of all pricing plans available",
+           "operationId": "getAll",
+           "responses": {
+              "200": {
+                 "description": "Success",
+                 "schema": {
+                    "$ref": "#/definitions/pricingPlan"
+                 }
+              },
+              "203": {
+                 "description": "Non Authoritative Information",
+                 "schema": {
+                    "$ref": "#/definitions/errorDocument"
+                 }
+              },
+              "204": {
+                 "description": "No Content Found",
+                 "schema": {
+                    "$ref": "#/definitions/errorDocument"
+                 }
+              },
+              "401": {
+                 "description": "Unauthorize",
+                 "schema": {
+                    "$ref": "#/definitions/errorDocument"
+                 }
+              },
+              "408": {
+                 "description": "Timeout",
+                 "schema": {
+                    "$ref": "#/definitions/errorDocument"
+                 }
+              },
+              "500": {
+                 "description": "Internal Server Error",
+                 "schema": {
+                    "$ref": "#/definitions/errorDocument"
+                 }
+              }
+           }
+        },
+        "post": {
+           "tags": [
+              "Plans"
+           ],
+           "description": "method to create new pricing plan",
+           "operationId": "createplan",
+           "parameters": [
+              {
+                 "name": "pricingplan",
+                 "in": "body",
+                 "description": "pricingplan to be created will be sent in body",
+                 "required": true,
+                 "schema": {
+                    "$ref": "#/definitions/pricingPlan"
+                 }
+              }
+           ],
+           "responses": {
+              "200": {
+                 "description": "Success",
+                 "schema": {
+                    "$ref": "#/definitions/pricingPlan"
+                 }
+              },
+              "203": {
+                 "description": "Non Authoritative Information",
+                 "schema": {
+                    "$ref": "#/definitions/errorDocument"
+                 }
+              },
+              "204": {
+                 "description": "No Content Found",
+                 "schema": {
+                    "$ref": "#/definitions/errorDocument"
+                 }
+              },
+              "401": {
+                 "description": "Unauthorize",
+                 "schema": {
+                    "$ref": "#/definitions/errorDocument"
+                 }
+              },
+              "408": {
+                 "description": "Timeout",
+                 "schema": {
+                    "$ref": "#/definitions/errorDocument"
+                 }
+              },
+              "500": {
+                 "description": "Internal Server Error",
+                 "schema": {
+                    "$ref": "#/definitions/errorDocument"
+                 }
+              }
+           }
+        }
+     },
+      "/pricingPlans/master": {
+        "x-swagger-router-controller": "pricingPlans",
+        "get": {
+           "tags": [
+              "Plans"
+           ],
+           "description": "Returns the list of all pricing plans available",
+           "operationId": "getAllMaster",
+           "responses": {
+              "200": {
+                 "description": "Success",
+                 "schema": {
+                    "$ref": "#/definitions/pricingPlanMaster"
+                 }
+              },
+              "203": {
+                 "description": "Non Authoritative Information",
+                 "schema": {
+                    "$ref": "#/definitions/errorDocument"
+                 }
+              },
+              "204": {
+                 "description": "No Content Found",
+                 "schema": {
+                    "$ref": "#/definitions/errorDocument"
+                 }
+              },
+              "401": {
+                 "description": "Unauthorize",
+                 "schema": {
+                    "$ref": "#/definitions/errorDocument"
+                 }
+              },
+              "408": {
+                 "description": "Timeout",
+                 "schema": {
+                    "$ref": "#/definitions/errorDocument"
+                 }
+              },
+              "500": {
+                 "description": "Internal Server Error",
+                 "schema": {
+                    "$ref": "#/definitions/errorDocument"
+                 }
+              }
+           }
+        },
+        "post": {
+           "tags": [
+              "Plans"
+           ],
+           "description": "method to create new pricing plan",
+           "operationId": "createMasterPlan",
+           "parameters": [
+              {
+                 "name": "pricingplan",
+                 "in": "body",
+                 "description": "pricingplan to be created will be sent in body",
+                 "required": true,
+                 "schema": {
+                    "$ref": "#/definitions/pricingPlanMaster"
+                 }
+              }
+           ],
+           "responses": {
+              "200": {
+                 "description": "Success",
+                 "schema": {
+                    "$ref": "#/definitions/pricingPlanMaster"
+                 }
+              },
+              "203": {
+                 "description": "Non Authoritative Information",
+                 "schema": {
+                    "$ref": "#/definitions/errorDocument"
+                 }
+              },
+              "204": {
+                 "description": "No Content Found",
+                 "schema": {
+                    "$ref": "#/definitions/errorDocument"
+                 }
+              },
+              "401": {
+                 "description": "Unauthorize",
+                 "schema": {
+                    "$ref": "#/definitions/errorDocument"
+                 }
+              },
+              "408": {
+                 "description": "Timeout",
+                 "schema": {
+                    "$ref": "#/definitions/errorDocument"
+                 }
+              },
+              "500": {
+                 "description": "Internal Server Error",
+                 "schema": {
+                    "$ref": "#/definitions/errorDocument"
+                 }
+              }
+           }
+        }
+     },
+     "/pricingPlans/{plan}": {
+        "x-swagger-router-controller": "pricingPlans",
+        "get": {
+           "tags": [
+              "Plans"
+           ],
+           "description": "Returns the list of all pricing plans available",
+           "operationId": "getplan",
+           "parameters": [
+              {
+                 "name": "plan",
+                 "in": "path",
+                 "description": "get the planname by its name",
+                 "required": true,
+                 "type": "string"
+              }
+           ],
+           "responses": {
+              "200": {
+                 "description": "Success",
+                 "schema": {
+                    "$ref": "#/definitions/pricingPlan"
+                 }
+              },
+              "203": {
+                 "description": "Non Authoritative Information",
+                 "schema": {
+                    "$ref": "#/definitions/errorDocument"
+                 }
+              },
+              "204": {
+                 "description": "No Content Found",
+                 "schema": {
+                    "$ref": "#/definitions/errorDocument"
+                 }
+              },
+              "401": {
+                 "description": "Unauthorize",
+                 "schema": {
+                    "$ref": "#/definitions/errorDocument"
+                 }
+              },
+              "408": {
+                 "description": "Timeout",
+                 "schema": {
+                    "$ref": "#/definitions/errorDocument"
+                 }
+              },
+              "500": {
+                 "description": "Internal Server Error",
+                 "schema": {
+                    "$ref": "#/definitions/errorDocument"
+                 }
+              }
+           }
+        },
+       "put":{
+            "tags": [
+              "Plans"
+           ],
+           "description": "method to create new pricing plan",
+           "operationId": "updatePlan",
+           "parameters": [
+               {
+                 "name": "plan",
+                 "in": "path",
+                 "description": "get the planname by its name",
+                 "required": true,
+                 "type": "string"
+              },                
+              {
+                 "name": "pricingplan",
+                 "in": "body",
+                 "description": "pricingplan to be created will be sent in body",
+                 "required": true,
+                 "schema": {
+                    "$ref": "#/definitions/pricingPlan"
+                 }
+              }
+           ],
+           "responses": {
+              "200": {
+                 "description": "Success",
+                 "schema": {
+                    "$ref": "#/definitions/pricingPlan"
+                 }
+              },
+              "203": {
+                 "description": "Non Authoritative Information",
+                 "schema": {
+                    "$ref": "#/definitions/errorDocument"
+                 }
+              },
+              "204": {
+                 "description": "No Content Found",
+                 "schema": {
+                    "$ref": "#/definitions/errorDocument"
+                 }
+              },
+              "401": {
+                 "description": "Unauthorize",
+                 "schema": {
+                    "$ref": "#/definitions/errorDocument"
+                 }
+              },
+              "408": {
+                 "description": "Timeout",
+                 "schema": {
+                    "$ref": "#/definitions/errorDocument"
+                 }
+              },
+              "500": {
+                 "description": "Internal Server Error",
+                 "schema": {
+                    "$ref": "#/definitions/errorDocument"
+                 }
+              }
+           }
+       }
+     },
+     "/swagger": {
+        "x-swagger-pipe": "swagger_raw"
+     }
+  },
+  "definitions": {
+     "pricingPlan": {
+        "type": "object",
+        "properties": {
+           "data": {
+              "type": "array",
+              "items": {
+                 "type": "object",
+                 "required": [
+                    "type",
+                    "id",
+                    "attributes"
+                 ],
+                 "properties": {
+                    "type": {
+                       "type": "string"
+                    },
+                    "id": {
+                       "type": "string"
+                    },
+                    "attributes": {
+                       "type": "object",
+                       "properties": {
+                          "plantitle": {
+                             "type": "string"
+                          },
+                          "type": {
+                             "type": "string"
+                          },
+                          "description": {
+                             "type": "string"
+                          },
+                          "cost": {
+                             "type": "integer"
+                          },
+                          "ecgCounts": {
+                             "type": "integer"
+                          },
+                          "ecgReviews": {
+                             "type": "integer"
+                          }
+                       }
+                    }
+                 }
+              }
+           },
+           "meta": {
+              "type": "object"
+           },
+           "include": {
+              "type": "object"
+           }
+        }
+     },
+      "pricingPlanMaster": {
+        "type": "object",
+        "properties": {
+           "data": {
+              "type": "array",
+              "items": {
+                 "type": "object",
+                 "required": [
+                    "type",
+                    "id",
+                    "attributes"
+                 ],
+                 "properties": {
+                    "type": {
+                       "type": "string"
+                    },
+                    "id": {
+                       "type": "string"
+                    },
+                    "attributes": {
+                       "type": "object",
+                       "properties": {
+                          "plantitle": {
+                             "type": "string"
+                          },
+                          "type": {
+                             "type": "string"
+                          },
+                          "description": {
+                             "type": "string"
+                          },
+                          "cost": {
+                             "type": "integer"
+                          },
+                          "keyCounts": {
+                             "type": "integer"
+                          },
+                          "hitsAllowed": {
+                             "type": "integer"
+                          }
+                       }
+                    }
+                 }
+              }
+           },
+           "meta": {
+              "type": "object"
+           },
+           "include": {
+              "type": "object"
+           }
+        }
+     },
+     "errorDocument": {
+        "title": "error",
+        "type": "object",
+        "properties": {
+           "errors": {
+              "type": "array",
+              "items": {
+                 "type": "object",
+                 "properties": {
+                    "title": {
+                       "type": "string"
+                    },
+                    "code": {
+                       "type": "string"
+                    },
+                    "detail": {
+                       "type": "string"
+                    },
+                    "source": {
+                       "type": "object",
+                       "properties": {
+                          "pointer": {
+                             "type": "string"
+                          },
+                          "paramter": {
+                             "type": "string"
+                          }
+                       }
+                    },
+                    "meta": {
+                       "type": "object"
+                    }
+                 },
+                 "required": [
+                    "title",
+                    "code",
+                    "detail"
+                 ]
+              }
+           }
+        }
+     }
+  }
+}
